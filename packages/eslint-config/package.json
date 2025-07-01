@@ -3,14 +3,14 @@
   "version": "0.0.1",
   "private": true,
   "description": "common eslint config used withing @opencloud-eu namespace.",
-  "homepage": "https://github.com/owncloud/cdperf/tree/master/packages/eslint-config",
+  "homepage": "https://github.com/opencloud-eu/cdperf/tree/master/packages/eslint-config",
   "repository": {
     "type": "git",
-    "url": "https://github.com/owncloud/cdperf",
+    "url": "https://github.com/opencloud-eu/cdperf",
     "directory": "packages/eslint-config"
   },
   "license": "AGPL-3.0",
-  "author": "ownCloud GmbH <devops@owncloud.com>",
+  "author": "OpenCloud GmbH <devops@opencloud.eu>",
   "main": "index.js",
   "scripts": {
     "clean": "pnpm clean:vendor",

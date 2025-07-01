@@ -1,9 +1,9 @@
 {
   "version": "2.0.0-rc.5",
   "private": true,
-  "homepage": "https://github.com/owncloud/cdperf",
+  "homepage": "https://github.com/opencloud-eu/cdperf",
   "license": "AGPL-3.0",
-  "author": "ownCloud GmbH <devops@owncloud.com>",
+  "author": "OpenCloud GmbH <devops@opencloud.eu>",
   "scripts": {
     "build": "turbo run build --no-daemon",
     "changeset": "changeset",

@@ -1,12 +1,13 @@
-# ownCloud cloud testing toolbox
+# openCloud cloud testing toolbox
 
 This repository contains the tools we use to test and measure the performance of different cloud systems.
 
-For detailed information how to run and write new tests, please read [the cdperf documentation](https://owncloud.dev/cdperf/).
+For detailed information on how to run and write new tests,
+please read [the cdperf documentation](https://docs.opencloud.eu/cdperf/).
 
 ## Supported clouds
+* [openCloud](https://github.com/opencloud-eu/opencloud)
 * [ownCloud Core](https://github.com/owncloud/core)
-* [Infinite Scale](https://github.com/owncloud/ocis)
 * [Nextcloud](https://github.com/nextcloud/server/)
 
 ## Package Index
@@ -19,7 +20,7 @@ For detailed information how to run and write new tests, please read [the cdperf
 
 ## Security
 
-If you find a security issue please contact [security@owncloud.com](mailto:security@owncloud.com) first
+If you find a security issue, please contact [security@opencloud.eu](mailto:security@opencloud.eu) first
 
 ## Contributing
 
@@ -37,11 +38,11 @@ Apache-2.0
 
 ## Dictonary
 
-* **oCis**: [ownCloud Infinite Scale](https://github.com/owncloud/ocis)
 * **k6-tdk**: k6 test development kit
 * **cdPerf**: cloud performance
 
 ## Copyright
 ```console
+Copyright (c) 2025 OpenCloud GmbH <https://opencloud.eu>
 Copyright (c) 2023 ownCloud GmbH <https://owncloud.com>
 ```

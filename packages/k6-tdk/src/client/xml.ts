@@ -12,11 +12,11 @@ const createProlog = () => {
 }
 
 type PlatformXml<
-  OCIS extends Record<string, unknown> = {},
-  OCC extends Record<string, unknown> = OCIS,
+  OPC extends Record<string, unknown> = {},
+  OCC extends Record<string, unknown> = OPC,
   NC extends Record<string, unknown> = OCC,
 > = {
-  [Platform.openCloud]: (p: OCIS) => string;
+  [Platform.openCloud]: (p: OPC) => string;
   [Platform.ownCloudServer]: (p: OCC) => string;
   [Platform.nextcloud]: (p: NC) => string;
 }

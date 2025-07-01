@@ -54,7 +54,7 @@ const sidebarK6Tests = () => {
 const vitePressConfig = defineConfig({
   lang: 'en-US',
   title: 'cdPerf',
-  description: 'ownCloud cloud testing toolbox.',
+  description: 'openCloud cloud testing toolbox.',
   lastUpdated: true,
   cleanUrls: true,
   base: '/cdperf/',
@@ -73,23 +73,19 @@ const vitePressConfig = defineConfig({
   themeConfig: {
     nav: [
       {
-        text: 'Infinite Scale',
-        link: 'https://github.com/owncloud/ocis'
+        text: 'OpenCloud',
+        link: 'https://github.com/opencloud-eu/opencloud'
       },
       {
         text: 'Web',
-        link: 'https://github.com/owncloud/web'
-      },
-      {
-        text: 'ownCloud',
-        link: 'https://owncloud.com/'
+        link: 'https://github.com/opencloud-eu/web'
       },
       {
         text: pkg.version,
         items: [
           {
             text: 'Contributing',
-            link: 'https://github.com/owncloud/cdperf/blob/main/.github/contributing.md'
+            link: 'https://github.com/opencloud-eu/cdperf/blob/main/.github/contributing.md'
           }
         ]
       }
@@ -100,12 +96,12 @@ const vitePressConfig = defineConfig({
     },
 
     socialLinks: [
-      {icon: 'github', link: 'https://github.com/owncloud/cdperf'}
+      {icon: 'github', link: 'https://github.com/opencloud-eu/cdperf'}
     ],
 
     footer: {
       message: 'Released under the Apache-2.0 License.',
-      copyright: `Copyright (c) ${new Date().getFullYear()} ownCloud GmbH <https://owncloud.com>`
+      copyright: `Copyright (c) ${new Date().getFullYear()} OpenCloud GmbH <https://opencloud.eu/>`
     },
   }
 })

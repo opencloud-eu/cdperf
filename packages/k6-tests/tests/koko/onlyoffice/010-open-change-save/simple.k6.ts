@@ -62,16 +62,16 @@ export const open_change_save_010 = async ({ testRoot }: Environment): Promise<v
   const user = getPoolItem({ pool: userPool, n: exec.vu.idInTest })
   const userStore = store(user.userLogin)
   const documentInformation = await userStore.setOrGet('root', async () => {
-    const ocisClient = clientFor(user)
+    const platformClient = clientFor(user)
 
-    const getResourcePropertiesResponse = await ocisClient.resource.getResourceProperties({
+    const getResourcePropertiesResponse = await platformClient.resource.getResourceProperties({
       root: testRoot,
       resourcePath: settings.docx
     })
     sleep(settings.sleep.after_request)
 
     const [resourceId] = queryXml("$..['oc:fileid']", getResourcePropertiesResponse.body)
-    return obtainDocumentInformation({ client: ocisClient, appName: settings.only_office.app_name, resourceId })
+    return obtainDocumentInformation({ client: platformClient, appName: settings.only_office.app_name, resourceId })
   })
 
   const ooClient = new Client({

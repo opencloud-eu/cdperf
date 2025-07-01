@@ -8,7 +8,7 @@ import { getTestRoot } from './root'
 test.each([
   {
     v: {
-      platform: Platform.ownCloudInfiniteScale,
+      platform: Platform.openCloud,
       resourceType: TestRootType.space,
       userLogin: 'any-user',
       resourceName: 'any-resource',
@@ -18,7 +18,7 @@ test.each([
   },
   {
     v: {
-      platform: Platform.ownCloudInfiniteScale,
+      platform: Platform.openCloud,
       resourceType: TestRootType.directory,
       userLogin: 'any-user',
       resourceName: 'any-resource',
@@ -28,7 +28,7 @@ test.each([
   },
   {
     v: {
-      platform: Platform.ownCloudInfiniteScale,
+      platform: Platform.openCloud,
       resourceType: TestRootType.directory,
       userLogin: 'any-user',
       resourceName: 'any-resource',

@@ -9,13 +9,13 @@ The `080 create space` test creates a space (per user iteration) and deletes it 
 * each `user iteration` creates a space.
 * each `user iteration` deletes the space.
 
-the test runs `N` times for each user, for example if you define `--vus 2` and `--iterations 5`
+the test runs `N` times for each user, for example, if you define `--vus 2` and `--iterations 5`
 the testing steps as a whole will run 10 times (5 times per user).
 
 
 ## Compatibility
 
-* :white_check_mark: ownCloud Infinite Scale
+* :white_check_mark: openCloud
 * :x: ownCloud Server
 * :x: Nextcloud
 

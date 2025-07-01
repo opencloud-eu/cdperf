@@ -7,14 +7,14 @@ You can find more information on how use or install K6 [here](https://k6.io/docs
 All tests need to run with the admin user who is capable of provisioning users. If you have a non standard password for admin, set the environment variables `ADMIN_LOGIN` and `ADMIN_PASSWORD` to match that.
 
 ## The following platforms are supported
-* [ownCloud Infinite Scale](https://github.com/owncloud/ocis)
+* [openCloud](https://github.com/opencloud-eu/opencloud)
 * [ownCloud Core](https://github.com/owncloud/core)
 * [Nextcloud](https://github.com/nextcloud/server/)
 
 ## Requirements
 *  [K6](https://k6.io/) (if k6 should run on the host machine)
 
-## For ownCloud Infinite Scale
+## For openCloud
 
 ### Local K6
 
