@@ -1,6 +1,6 @@
 {
 	"root": true,
-	"extends": ["@ownclouders"],
+	"extends": ["@opencloud-eu"],
   "overrides": [
     {
       "files": ["src/client/**/*"],

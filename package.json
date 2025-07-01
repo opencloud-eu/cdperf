@@ -21,7 +21,7 @@
   "devDependencies": {
     "@algolia/client-search": "^4.17.2",
     "@changesets/cli": "^2.26.1",
-    "@ownclouders/eslint-config": "workspace:*",
+    "@opencloud-eu/eslint-config": "workspace:*",
     "@roarr/cli": "^5.12.3",
     "@types/lodash": "^4.14.195",
     "fast-glob": "^3.2.12",

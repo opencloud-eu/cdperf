@@ -1,4 +1,4 @@
-import { cleanURL, ENV, queryXml, store } from '@ownclouders/k6-tdk/lib/utils'
+import { cleanURL, ENV, queryXml, store } from '@opencloud-eu/k6-tdk/lib/utils'
 import { sleep } from 'k6'
 import exec from 'k6/execution'
 import { Counter } from 'k6/metrics'

@@ -1,5 +1,5 @@
 {
-  "name": "@ownclouders/k6-tdk",
+  "name": "@opencloud-eu/k6-tdk",
   "version": "0.0.1",
   "private": false,
   "description": "ownCloud k6 test development kit",
@@ -73,9 +73,9 @@
     "xmlbuilder2": "^3.1.1"
   },
   "devDependencies": {
-    "@ownclouders/eslint-config": "workspace:*",
-    "@ownclouders/tsconfig": "workspace:*",
-    "@ownclouders/turbowatch": "workspace:*",
+    "@opencloud-eu/eslint-config": "workspace:*",
+    "@opencloud-eu/tsconfig": "workspace:*",
+    "@opencloud-eu/turbowatch": "workspace:*",
     "@types/jsonpath": "^0.2.0",
     "@types/k6": "^0.45.0",
     "@types/lodash": "^4.14.195",

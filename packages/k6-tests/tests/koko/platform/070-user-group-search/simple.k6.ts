@@ -1,5 +1,5 @@
-import { store } from '@ownclouders/k6-tdk/lib/utils'
-import { ItemType } from '@ownclouders/k6-tdk/lib/values'
+import { store } from '@opencloud-eu/k6-tdk/lib/utils'
+import { ItemType } from '@opencloud-eu/k6-tdk/lib/values'
 import { sleep } from 'k6'
 import exec from 'k6/execution'
 import { Options } from 'k6/options'

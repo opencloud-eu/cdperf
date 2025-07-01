@@ -1,8 +1,8 @@
 {
-  "name": "@ownclouders/eslint-config",
+  "name": "@opencloud-eu/eslint-config",
   "version": "0.0.1",
   "private": true,
-  "description": "common eslint config used withing @ownclouders namespace.",
+  "description": "common eslint config used withing @opencloud-eu namespace.",
   "homepage": "https://github.com/owncloud/cdperf/tree/master/packages/eslint-config",
   "repository": {
     "type": "git",

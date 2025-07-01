@@ -1,4 +1,4 @@
 {
 	"root": true,
-	"extends": ["@ownclouders"]
+	"extends": ["@opencloud-eu"]
 }

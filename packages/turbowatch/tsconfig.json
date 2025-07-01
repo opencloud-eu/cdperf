@@ -1,5 +1,5 @@
 {
-  "extends": "@ownclouders/tsconfig/project.json",
+  "extends": "@opencloud-eu/tsconfig/project.json",
   "compilerOptions": {
 	"baseUrl": ".",
 	"paths": {

@@ -1,5 +1,5 @@
-import { Client } from '@ownclouders/k6-tdk/lib/client'
-import { objectToQueryString } from '@ownclouders/k6-tdk/lib/utils'
+import { Client } from '@opencloud-eu/k6-tdk/lib/client'
+import { objectToQueryString } from '@opencloud-eu/k6-tdk/lib/utils'
 import { post } from 'k6/http'
 import { z } from 'zod'
 

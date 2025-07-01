@@ -1,5 +1,5 @@
-import { Client } from '@ownclouders/k6-tdk/lib/client'
-import { queryXml } from '@ownclouders/k6-tdk/lib/utils'
+import { Client } from '@opencloud-eu/k6-tdk/lib/client'
+import { queryXml } from '@opencloud-eu/k6-tdk/lib/utils'
 
 
 export const getOrCreateTag = (p: {tagName: string, client: Client}) => {

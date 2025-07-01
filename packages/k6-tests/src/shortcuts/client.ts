@@ -1,5 +1,5 @@
-import { Client } from '@ownclouders/k6-tdk/lib/client'
-import { httpClientFactory } from '@ownclouders/k6-tdk/lib/utils'
+import { Client } from '@opencloud-eu/k6-tdk/lib/client'
+import { httpClientFactory } from '@opencloud-eu/k6-tdk/lib/utils'
 import { CookieJar } from 'k6/http'
 
 import { envValues } from '@/values'

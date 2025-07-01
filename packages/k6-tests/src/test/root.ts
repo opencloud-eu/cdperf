@@ -1,6 +1,6 @@
-import { Client } from '@ownclouders/k6-tdk/lib/client'
-import { platformGuard, queryJson } from '@ownclouders/k6-tdk/lib/utils'
-import { Platform } from '@ownclouders/k6-tdk/lib/values'
+import { Client } from '@opencloud-eu/k6-tdk/lib/client'
+import { platformGuard, queryJson } from '@opencloud-eu/k6-tdk/lib/utils'
+import { Platform } from '@opencloud-eu/k6-tdk/lib/values'
 
 import { TestRootType } from '@/values'
 

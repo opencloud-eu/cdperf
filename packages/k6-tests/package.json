@@ -1,5 +1,5 @@
 {
-  "name": "@ownclouders/k6-tests",
+  "name": "@opencloud-eu/k6-tests",
   "version": "0.0.1",
   "private": true,
   "description": "ownCloud k6 tests",
@@ -23,14 +23,14 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ownclouders/k6-tdk": "workspace:*",
+    "@opencloud-eu/k6-tdk": "workspace:*",
     "lodash": "^4.17.21",
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@ownclouders/eslint-config": "workspace:*",
-    "@ownclouders/tsconfig": "workspace:*",
-    "@ownclouders/turbowatch": "workspace:*",
+    "@opencloud-eu/eslint-config": "workspace:*",
+    "@opencloud-eu/tsconfig": "workspace:*",
+    "@opencloud-eu/turbowatch": "workspace:*",
     "@types/k6": "^0.45.0",
     "@types/lodash": "^4.14.195",
     "@types/node": "^20.3.1",

@@ -1,4 +1,4 @@
-import { Platform } from '@ownclouders/k6-tdk/lib/values'
+import { Platform } from '@opencloud-eu/k6-tdk/lib/values'
 import { expect, test } from 'vitest'
 
 import { TestRootType } from '@/values'

@@ -1,5 +1,5 @@
-import { ENV, platformGuard } from '@ownclouders/k6-tdk/lib/utils'
-import { Platform } from '@ownclouders/k6-tdk/lib/values'
+import { ENV, platformGuard } from '@opencloud-eu/k6-tdk/lib/utils'
+import { Platform } from '@opencloud-eu/k6-tdk/lib/values'
 
 import { AuthNProvider, Embedded, TestRootType } from './const'
 

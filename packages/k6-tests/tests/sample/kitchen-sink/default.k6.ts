@@ -1,4 +1,4 @@
-import { Client } from '@ownclouders/k6-tdk/lib/client'
+import { Client } from '@opencloud-eu/k6-tdk/lib/client'
 import {
   check,
   deferer,
@@ -8,8 +8,8 @@ import {
   queryXml,
   randomString,
   store
-} from '@ownclouders/k6-tdk/lib/utils'
-import { ItemType, Permission, ShareType } from '@ownclouders/k6-tdk/lib/values'
+} from '@opencloud-eu/k6-tdk/lib/utils'
+import { ItemType, Permission, ShareType } from '@opencloud-eu/k6-tdk/lib/values'
 import { sleep } from 'k6'
 import { randomBytes } from 'k6/crypto'
 import { b64encode } from 'k6/encoding'

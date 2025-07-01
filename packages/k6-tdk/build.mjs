@@ -13,7 +13,7 @@ const instructions = {
     'values/index.ts',
     'utils/index.ts',
   ],
-  packageName: '@ownclouders/k6-tdk',
+  packageName: '@opencloud-eu/k6-tdk',
   packageRoot: 'lib',
   formats: ['cjs', 'esm']
 }

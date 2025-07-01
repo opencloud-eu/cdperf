@@ -1,8 +1,8 @@
 {
-  "name": "@ownclouders/turbowatch",
+  "name": "@opencloud-eu/turbowatch",
   "version": "0.0.1",
   "private": true,
-  "description": "common turbowatch helpers used withing @ownclouders namespace.",
+  "description": "common turbowatch helpers used withing @opencloud-eu namespace.",
   "homepage": "https://github.com/owncloud/cdperf/tree/master/packages/turbowatch",
   "repository": {
     "type": "git",
@@ -28,8 +28,8 @@
     "turbowatch": "^2.29.4"
   },
   "devDependencies": {
-    "@ownclouders/eslint-config": "workspace:*",
-    "@ownclouders/tsconfig": "workspace:*",
+    "@opencloud-eu/eslint-config": "workspace:*",
+    "@opencloud-eu/tsconfig": "workspace:*",
     "@types/node": "^20.3.1",
     "concurrently": "^8.2.0",
     "del-cli": "^5.0.0",
