@@ -1,0 +1,12 @@
+.idea
+*.iml
+.turbo
+.pnpm-store
+dist
+lib
+tmp
+node_modules
+cache
+/packages/k6-tests/artifacts
+.env
+env/*/result

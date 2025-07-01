@@ -1,0 +1,14 @@
+{
+  "extends": "@ownclouders/tsconfig/project.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
