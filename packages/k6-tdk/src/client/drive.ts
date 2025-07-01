@@ -13,7 +13,7 @@ export class Drive extends EndpointClient {
       case Platform.ownCloudServer:
       case Platform.nextcloud:
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.graph.v1.drives.POST__create_drive(this.httpClient, p)
     }
@@ -33,7 +33,7 @@ export class Drive extends EndpointClient {
       case Platform.ownCloudServer:
       case Platform.nextcloud:
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.graph.v1.drives.DELETE__deactivate_drive(this.httpClient, p)
     }
@@ -53,7 +53,7 @@ export class Drive extends EndpointClient {
       case Platform.ownCloudServer:
       case Platform.nextcloud:
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.graph.v1.drives.DELETE__delete_drive(this.httpClient, p)
     }

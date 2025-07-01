@@ -14,7 +14,7 @@ export class User extends EndpointClient {
       case Platform.nextcloud:
         response = endpoints.ocs.v2.apps.cloud.users.POST__create_user(this.httpClient, p)
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.graph.v1.users.POST__create_user(this.httpClient, p)
     }
@@ -37,7 +37,7 @@ export class User extends EndpointClient {
         response = endpoints.ocs.v2.apps.cloud.users.DELETE__delete_user(this.httpClient, p)
         expectedStatus = 200
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.graph.v1.users.DELETE__delete_user(this.httpClient, p)
         expectedStatus = 204
@@ -60,7 +60,7 @@ export class User extends EndpointClient {
       case Platform.nextcloud:
         response = endpoints.ocs.v2.apps.cloud.users.PUT__enable_user(this.httpClient, p)
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
     }
 

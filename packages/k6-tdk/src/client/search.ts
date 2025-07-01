@@ -29,7 +29,7 @@ export class Search extends EndpointClient {
         })
         break
       case Platform.ownCloudServer:
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.dav.files.REPORT__get_report_for_resources(this.httpClient, {
           ...p,

@@ -31,7 +31,7 @@ export const Permission = {
 export type Permission = (typeof Permission)[keyof typeof Permission];
 
 export const Platform = {
-  ownCloudInfiniteScale: 'ownCloudInfiniteScale',
+  openCloud: 'openCloud',
   ownCloudServer: 'ownCloudServer',
   nextcloud: 'nextcloud'
 } as const

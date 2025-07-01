@@ -32,7 +32,7 @@ export class Tag extends EndpointClient {
           canAssignTag
         })
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
     }
 
@@ -52,7 +52,7 @@ export class Tag extends EndpointClient {
       case Platform.nextcloud:
         response = endpoints.dav.systemtags.DELETE__delete_tag(this.httpClient, { tagId: p.tag })
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
     }
 
@@ -74,7 +74,7 @@ export class Tag extends EndpointClient {
           propfindXml: TAG__get_tags[this.platform]({})
         })
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
     }
 
@@ -99,7 +99,7 @@ export class Tag extends EndpointClient {
           tagId: p.tag
         })
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         expectedStatus = 200
         response = endpoints.graph.v1.extensions.org_libre_graph.tags.PUT__add_tags_to_resource(this.httpClient, {
@@ -129,7 +129,7 @@ export class Tag extends EndpointClient {
           tagId: p.tag
         })
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         expectedStatus = 200
         response = endpoints.graph.v1.extensions.org_libre_graph.tags.DELETE__remove_tags_from_resource(this.httpClient, {
@@ -157,7 +157,7 @@ export class Tag extends EndpointClient {
         response = endpoints.dav.systemtags_relations.PROPFIND__get_tags_with_properties_for_resource(this.httpClient,
           { resourceId: p.resourceId, propfindXml })
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.dav.spaces.PROPFIND__get_properties_for_resource(this.httpClient,
           { driveId: p.root, resourcePath: p.resourcePath, propfindXml })

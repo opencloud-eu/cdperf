@@ -13,7 +13,7 @@ export class Group extends EndpointClient {
       case Platform.ownCloudServer:
       case Platform.nextcloud:
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.graph.v1.groups.GET_get_groups(this.httpClient, {})
     }
@@ -34,7 +34,7 @@ export class Group extends EndpointClient {
       case Platform.nextcloud:
         response = endpoints.ocs.v2.apps.cloud.groups.POST__create_group(this.httpClient, p)
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.graph.v1.groups.POST__create_group(this.httpClient, p)
     }
@@ -57,7 +57,7 @@ export class Group extends EndpointClient {
         response = endpoints.ocs.v2.apps.cloud.groups.DELETE__delete_group(this.httpClient, { groupName: p.groupIdOrName })
         expectedStatus = 200
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.graph.v1.groups.DELETE__delete_group(this.httpClient, { groupId: p.groupIdOrName })
         expectedStatus = 204
