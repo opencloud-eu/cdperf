@@ -1,4 +1,4 @@
-import { Client } from '@ownclouders/k6-tdk/lib/client'
+import { Client } from '@opencloud-eu/k6-tdk/lib/client'
 import {
   check,
   deferer,
@@ -8,8 +8,8 @@ import {
   queryXml,
   randomString,
   store
-} from '@ownclouders/k6-tdk/lib/utils'
-import { ItemType, Permission, ShareType } from '@ownclouders/k6-tdk/lib/values'
+} from '@opencloud-eu/k6-tdk/lib/utils'
+import { ItemType, Permission, ShareType } from '@opencloud-eu/k6-tdk/lib/values'
 import { sleep } from 'k6'
 import { randomBytes } from 'k6/crypto'
 import { b64encode } from 'k6/encoding'
@@ -135,7 +135,7 @@ export default async function actor({ actorData }: Environment): Promise<void> {
    */
   const clientApplication = group('client.application.*', () => {
     const listApplicationsResponse = adminClient.application.listApplications()
-    const [applicationId] = queryJson("$.value[?(@.displayName === 'ownCloud Infinite Scale')].id", listApplicationsResponse?.body)
+    const [applicationId] = queryJson("$.value[?(@.displayName === 'OpenCloud')].id", listApplicationsResponse?.body)
 
     return {
       applicationId
@@ -285,7 +285,7 @@ export default async function actor({ actorData }: Environment): Promise<void> {
       }
     })
 
-    // fallBack to tagName for oCis
+    // fallBack to tagName
     const tagNameOrId = existingTagId || createdTagId || tagName
 
     actorClient.tag.addTagToResource({ tag: tagNameOrId, resourceId: clientResource.folderId })
@@ -293,9 +293,9 @@ export default async function actor({ actorData }: Environment): Promise<void> {
       { root: actorRoot, resourceId: clientResource.folderId, resourcePath: clientResource.folderName })
 
     const extractTag = (body: string) => {
-      const [foundTagOcis] = queryXml("$..['oc:tags']", body)
+      const [foundTag] = queryXml("$..['oc:tags']", body)
       const [foundTagOccOrNc] = queryXml(`$..[?(@['oc:id'] === '${tagNameOrId}')]['oc:display-name']`, body)
-      return foundTagOcis || foundTagOccOrNc
+      return foundTag || foundTagOccOrNc
     }
 
     check({ val: extractTag(getTagsForResourceResponseAfterAdd.body) }, {

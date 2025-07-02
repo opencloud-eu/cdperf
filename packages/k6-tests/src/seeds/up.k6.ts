@@ -1,4 +1,4 @@
-import { noop, queryJson } from '@ownclouders/k6-tdk/lib/utils'
+import { noop, queryJson } from '@opencloud-eu/k6-tdk/lib/utils'
 import { randomBytes } from 'k6/crypto'
 import { Options } from 'k6/options'
 

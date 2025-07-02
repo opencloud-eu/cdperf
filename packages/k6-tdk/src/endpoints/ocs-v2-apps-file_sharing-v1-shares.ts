@@ -24,11 +24,11 @@ export const POST__create_share: Endpoint<{
     permissions: shareReceiverPermission.toString()
   }
 
-  if(o?.platform === Platform.ownCloudInfiniteScale && spaceRef){
+  if(o?.platform === Platform.openCloud && spaceRef){
     body.space_ref = spaceRef
   }
 
-  if(o?.platform !== Platform.ownCloudInfiniteScale){
+  if(o?.platform !== Platform.openCloud){
     body = JSON.stringify(body)
     headers['Content-Type'] = 'application/json'
   }

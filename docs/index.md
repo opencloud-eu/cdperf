@@ -2,11 +2,11 @@
 layout: home
 
 title: cdPerf
-titleTemplate: ownCloud cloud testing toolbox
+titleTemplate: OpenCloud cloud testing toolbox
 
 hero:
   name: cdPerf
-  text: ownCloud cloud testing toolbox
+  text: OpenCloud cloud testing toolbox
   tagline: Tools we use to test and measure the performance of different cloud systems.
   actions:
     - theme: brand
@@ -14,7 +14,7 @@ hero:
       link: /k6-tests/docs/
     - theme: alt
       text: View on GitHub
-      link: https://github.com/owncloud/cdperf
+      link: https://github.com/opencloud-eu/cdperf
 
 features:
   - icon: 🚀
@@ -24,6 +24,6 @@ features:
   - icon: 📝
     title: K6 test development kit
     details: Simplifies the writing of tests and is compatible with several cloud platforms out of the box.
-    link: https://github.com/owncloud/cdperf/tree/main/packages/k6-tdk
+    link: https://github.com/opencloud-eu/cdperf/tree/main/packages/k6-tdk
 ---
 

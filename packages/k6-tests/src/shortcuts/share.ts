@@ -1,6 +1,6 @@
-import { Client } from '@ownclouders/k6-tdk/lib/client'
-import { queryXml } from '@ownclouders/k6-tdk/lib/utils'
-import { Permission, ShareType } from '@ownclouders/k6-tdk/lib/values'
+import { Client } from '@opencloud-eu/k6-tdk/lib/client'
+import { queryXml } from '@opencloud-eu/k6-tdk/lib/utils'
+import { Permission, ShareType } from '@opencloud-eu/k6-tdk/lib/values'
 
 import { TestRootType } from '@/values'
 

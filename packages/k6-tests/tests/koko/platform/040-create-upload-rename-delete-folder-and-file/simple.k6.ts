@@ -1,4 +1,4 @@
-import { queryJson, randomString, store  } from '@ownclouders/k6-tdk/lib/utils'
+import { queryJson, randomString, store  } from '@opencloud-eu/k6-tdk/lib/utils'
 import { sleep } from 'k6'
 import { randomBytes } from 'k6/crypto'
 import exec from 'k6/execution'

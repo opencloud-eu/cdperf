@@ -1,4 +1,4 @@
-import { AuthNHTTPProvider, BasicAuth, Keycloak, Kopano } from '@ownclouders/k6-tdk/lib/auth'
+import { AuthNHTTPProvider, BasicAuth, Keycloak, Kopano } from '@opencloud-eu/k6-tdk/lib/auth'
 import { CookieJar } from 'k6/http'
 
 import { AuthNProvider, envValues } from '@/values'

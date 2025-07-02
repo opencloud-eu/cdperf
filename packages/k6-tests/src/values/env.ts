@@ -1,5 +1,5 @@
-import { ENV, platformGuard } from '@ownclouders/k6-tdk/lib/utils'
-import { Platform } from '@ownclouders/k6-tdk/lib/values'
+import { ENV, platformGuard } from '@opencloud-eu/k6-tdk/lib/utils'
+import { Platform } from '@opencloud-eu/k6-tdk/lib/values'
 
 import { AuthNProvider, Embedded, TestRootType } from './const'
 
@@ -29,7 +29,7 @@ export const envValues = () => {
         get type() {
           return TestRootType[ENV(
             'SEED_CONTAINER_TYPE',
-            platformGuard(values.platform.type).isOwnCloudInfiniteScale ? TestRootType.space : TestRootType.directory
+            platformGuard(values.platform.type).isOpenCloud ? TestRootType.space : TestRootType.directory
           )]
         }
       },
@@ -106,7 +106,7 @@ export const envValues = () => {
     },
     platform: {
       get type(){
-        return Platform[ENV('PLATFORM_TYPE', Platform.ownCloudInfiniteScale)]
+        return Platform[ENV('PLATFORM_TYPE', Platform.openCloud)]
       },
       get base_url(){
         return ENV('PLATFORM_BASE_URL', 'https://localhost:9200')

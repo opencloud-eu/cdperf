@@ -1,4 +1,4 @@
-import {watch} from "@ownclouders/turbowatch";
+import {watch} from "@opencloud-eu/turbowatch";
 
 void watch({
   project: __dirname,

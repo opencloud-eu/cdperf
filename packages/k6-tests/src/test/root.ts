@@ -1,6 +1,6 @@
-import { Client } from '@ownclouders/k6-tdk/lib/client'
-import { platformGuard, queryJson } from '@ownclouders/k6-tdk/lib/utils'
-import { Platform } from '@ownclouders/k6-tdk/lib/values'
+import { Client } from '@opencloud-eu/k6-tdk/lib/client'
+import { platformGuard, queryJson } from '@opencloud-eu/k6-tdk/lib/utils'
+import { Platform } from '@opencloud-eu/k6-tdk/lib/values'
 
 import { TestRootType } from '@/values'
 
@@ -44,16 +44,16 @@ export const getTestRoot = async (p: {
     params = { $filter: "driveType eq 'personal'" }
   }
 
-  if (guards.isOwnCloudInfiniteScale) {
+  if (guards.isOpenCloud) {
     const getMyDrivesResponse = await p.client.me.getMyDrives({ params })
     ;[rv.root] = queryJson(`$.value[?(@.${query})].id`, getMyDrivesResponse?.body)
   }
 
-  if (!guards.isOwnCloudInfiniteScale) {
+  if (!guards.isOpenCloud) {
     rv.root = p.userLogin
   }
 
-  if (!guards.isOwnCloudInfiniteScale || guards.isDirectory && guards.isOwner) {
+  if (!guards.isOpenCloud || guards.isDirectory && guards.isOwner) {
     rv.path = p.resourceName
   }
 
@@ -73,7 +73,7 @@ export const createTestRoot = async (p: {
   const rv = { root: '', path: '' }
   const guards = buildGuards(p)
 
-  if (guards.isOwnCloudInfiniteScale && guards.isSpace) {
+  if (guards.isOpenCloud && guards.isSpace) {
     const existingSpace = await getTestRoot({ ...p, isOwner: true })
     if (existingSpace.root) {
       return existingSpace
@@ -84,13 +84,13 @@ export const createTestRoot = async (p: {
     rv.root = createdDriveId
   }
 
-  if (guards.isOwnCloudInfiniteScale && guards.isDirectory) {
+  if (guards.isOpenCloud && guards.isDirectory) {
     const getMyDrivesResponse = p.client.me.getMyDrives({})
     const [personalDriveId] = queryJson("$.value[?(@.driveType === 'personal')].id", getMyDrivesResponse?.body)
     rv.root = personalDriveId
   }
 
-  if (!guards.isOwnCloudInfiniteScale) {
+  if (!guards.isOpenCloud) {
     rv.root = p.userLogin
   }
 
@@ -116,7 +116,7 @@ export const deleteTestRoot = async (p: {
 
   const guards = buildGuards(p)
 
-  if (guards.isOwnCloudInfiniteScale && guards.isSpace) {
+  if (guards.isOpenCloud && guards.isSpace) {
     await p.client.drive.deactivateDrive({ driveId: existingTestRoot.root })
     await p.client.drive.deleteDrive({ driveId: existingTestRoot.root })
     return

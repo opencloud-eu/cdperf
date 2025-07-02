@@ -13,7 +13,7 @@ export class Me extends EndpointClient {
       case Platform.ownCloudServer:
       case Platform.nextcloud:
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.graph.v1.me.GET__current_user(this.httpClient, {})
     }
@@ -33,7 +33,7 @@ export class Me extends EndpointClient {
       case Platform.ownCloudServer:
       case Platform.nextcloud:
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.graph.v1.me.GET__get_current_user_drives(this.httpClient, { params: p.params })
     }

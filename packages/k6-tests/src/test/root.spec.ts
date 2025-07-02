@@ -1,4 +1,4 @@
-import { Platform } from '@ownclouders/k6-tdk/lib/values'
+import { Platform } from '@opencloud-eu/k6-tdk/lib/values'
 import { expect, test } from 'vitest'
 
 import { TestRootType } from '@/values'
@@ -8,7 +8,7 @@ import { getTestRoot } from './root'
 test.each([
   {
     v: {
-      platform: Platform.ownCloudInfiniteScale,
+      platform: Platform.openCloud,
       resourceType: TestRootType.space,
       userLogin: 'any-user',
       resourceName: 'any-resource',
@@ -18,7 +18,7 @@ test.each([
   },
   {
     v: {
-      platform: Platform.ownCloudInfiniteScale,
+      platform: Platform.openCloud,
       resourceType: TestRootType.directory,
       userLogin: 'any-user',
       resourceName: 'any-resource',
@@ -28,7 +28,7 @@ test.each([
   },
   {
     v: {
-      platform: Platform.ownCloudInfiniteScale,
+      platform: Platform.openCloud,
       resourceType: TestRootType.directory,
       userLogin: 'any-user',
       resourceName: 'any-resource',

@@ -12,11 +12,11 @@ const createProlog = () => {
 }
 
 type PlatformXml<
-  OCIS extends Record<string, unknown> = {},
-  OCC extends Record<string, unknown> = OCIS,
+  OPC extends Record<string, unknown> = {},
+  OCC extends Record<string, unknown> = OPC,
   NC extends Record<string, unknown> = OCC,
 > = {
-  [Platform.ownCloudInfiniteScale]: (p: OCIS) => string;
+  [Platform.openCloud]: (p: OPC) => string;
   [Platform.ownCloudServer]: (p: OCC) => string;
   [Platform.nextcloud]: (p: NC) => string;
 }
@@ -25,7 +25,7 @@ type PlatformXml<
  * resource.*
  */
 export const RESOURCE__get_resource_properties: PlatformXml = {
-  [Platform.ownCloudInfiniteScale]() {
+  [Platform.openCloud]() {
     return createProlog()
       .ele(namespace.dav, 'propfind')
       .ele(namespace.dav, 'prop')
@@ -35,7 +35,7 @@ export const RESOURCE__get_resource_properties: PlatformXml = {
       .end()
   },
   [Platform.ownCloudServer]() {
-    return this[Platform.ownCloudInfiniteScale]({})
+    return this[Platform.openCloud]({})
   },
   [Platform.nextcloud]() {
     return this[Platform.ownCloudServer]({})
@@ -50,7 +50,7 @@ export const SEARCH__search_for_resources: PlatformXml<
   { searchQuery: string, searchLimit?: number },
   { root: string, searchQuery: string, searchLimit?: number }
 > = {
-  [Platform.ownCloudInfiniteScale](p) {
+  [Platform.openCloud](p) {
     const { searchQuery, searchLimit = 100 } = p
 
     return createProlog()
@@ -69,7 +69,7 @@ export const SEARCH__search_for_resources: PlatformXml<
 
   },
   [Platform.ownCloudServer](p) {
-    return this[Platform.ownCloudInfiniteScale](p)
+    return this[Platform.openCloud](p)
   },
   [Platform.nextcloud](p) {
     const { root, searchQuery, searchLimit = 100 } = p
@@ -114,7 +114,7 @@ export const SEARCH__search_for_resources: PlatformXml<
 export const SEARCH__search_for_resources_by_tag: PlatformXml<
   { tag: string, searchLimit?: number }
 > = {
-  [Platform.ownCloudInfiniteScale](p) {
+  [Platform.openCloud](p) {
     const { tag, searchLimit = 100 } = p
 
     return createProlog()
@@ -154,7 +154,7 @@ export const SEARCH__search_for_resources_by_tag: PlatformXml<
  * tag.*
  */
 export const TAG__get_tags: PlatformXml = {
-  [Platform.ownCloudInfiniteScale]() {
+  [Platform.openCloud]() {
     return ''
   },
   [Platform.ownCloudServer]() {
@@ -176,7 +176,7 @@ export const TAG__get_tags: PlatformXml = {
 }
 
 export const TAG__get_tags_for_resource: PlatformXml = {
-  [Platform.ownCloudInfiniteScale]() {
+  [Platform.openCloud]() {
     return createProlog()
       .ele(namespace.dav, 'propfind')
       .ele(namespace.dav, 'prop')

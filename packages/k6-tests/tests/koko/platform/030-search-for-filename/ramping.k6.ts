@@ -1,4 +1,4 @@
-import { ENV } from '@ownclouders/k6-tdk/lib/utils'
+import { ENV } from '@opencloud-eu/k6-tdk/lib/utils'
 import { Options } from 'k6/options'
 import { omit } from 'lodash'
 

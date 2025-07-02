@@ -1,9 +1,9 @@
 {
   "version": "2.0.0-rc.5",
   "private": true,
-  "homepage": "https://github.com/owncloud/cdperf",
+  "homepage": "https://github.com/opencloud-eu/cdperf",
   "license": "AGPL-3.0",
-  "author": "ownCloud GmbH <devops@owncloud.com>",
+  "author": "OpenCloud GmbH <devops@opencloud.eu>",
   "scripts": {
     "build": "turbo run build --no-daemon",
     "changeset": "changeset",
@@ -21,7 +21,7 @@
   "devDependencies": {
     "@algolia/client-search": "^4.17.2",
     "@changesets/cli": "^2.26.1",
-    "@ownclouders/eslint-config": "workspace:*",
+    "@opencloud-eu/eslint-config": "workspace:*",
     "@roarr/cli": "^5.12.3",
     "@types/lodash": "^4.14.195",
     "fast-glob": "^3.2.12",

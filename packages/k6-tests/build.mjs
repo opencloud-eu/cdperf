@@ -34,7 +34,7 @@ await build({
   external: ['k6'],
   bundle: true,
   clean: true,
-  noExternal: ['lodash', '@ownclouders/k6-tdk', 'zod'],
+  noExternal: ['lodash', '@opencloud-eu/k6-tdk', 'zod'],
   splitting: true,
   sourcemap: true,
   esbuildOptions: (options) => {

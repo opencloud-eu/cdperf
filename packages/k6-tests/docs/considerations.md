@@ -1,9 +1,6 @@
 Performance Considerations
 ==========================
 
-Link:
-https://jira.owncloud.com/browse/OCIS-1705
-
 ## How can we model typical scenarios?
 
 Getting comparable statement about performance of EFSS cloud installations is a non-trivial task.
@@ -12,7 +9,7 @@ To solve that, the idea is to model typical scenarios for EFSS cloud installatio
 
 There needs to be a standardized process to collect data that allows a valid comparison. It needs to be repeatable and clearly specified.
 
-For that, ownCloud developed a tool called cdperf. cdperf is based on [k6](https://k6.io). It automates running certain test setups for currently three different test candidates: ownCloud 10, oCIS and NextCloud.
+For that, we developed a tool called cdperf. cdperf is based on [k6](https://k6.io). It automates running certain test setups for currently three different test candidates: ownCloud 10, OpenCloud and NextCloud.
 
 ## Influential Parameters
 
@@ -32,7 +29,7 @@ By default, it uses the officially provided docker containers of the cloud flavo
 
 ### Runtime Configuration
 
-Especially for a distributed system like oCIS it is important how the runtime manages the services. Are they run as separate processes, system threads or go co-routines? That influences how many operations can be parallelized and how many processor cores can be used at the same time.
+Especially for a distributed system like OpenCloud it is important how the runtime manages the services. Are they run as separate processes, system threads or go co-routines? That influences how many operations can be parallelized and how many processor cores can be used at the same time.
 
 ### Concurrent Access
 
@@ -42,27 +39,31 @@ In addition to that it happens that for example the desktop client runs parallel
 
 ### File Structure
 
-Enterprise file sync and share is about unstructured data, or just files. Obviously the performance of the EFSS system is influenced by
+Enterprise file sync and share are about unstructured data or just file.
+The performance of the EFSS system is influenced by
 
-* the amount of files
+* the number of files
 * their size
 * the histogram of the sizes of a set of files
-* the amount of directories
+* the number of directories
 * the depth of the file tree
 
-cdperf uses a histogram of file sizes that was seen on ownCloud instances with many users as average.
+cdperf uses a histogram of file sizes that was seen on our instances with many users as average.
 
 ### Sharing
 
-The amount of shares on the files that are involved in performance metering influences the overall performance, as well as the size of the single involved shares.
+The number of shares on the files that are involved in performance metering influences the overall performance, as well as the size of the single involved shares.
 
 Examples:
 1. One file shared with 1000 people.
 2. A directory with depth 30 and 10,000 files shared with one person.
-3. 1000 different file- and/or directory shares in a users file base.
+3. 1000 different file- and/or directory shares in a user's file base.
 
 ### Request Baseline
 
-Depending on the setup of the whole EFSS system with clients there is a ground noise of requests that happen without any user interaction, mainly through clients that check for availability of the cloud and sync states. This must be considered in performance checks.
+Depending on the setup of the whole EFSS system with clients,
+there is a ground noise of requests that happen without any user interaction,
+mainly through clients that check for availability of the cloud and sync states.
+This must be considered in performance checks.
 
 

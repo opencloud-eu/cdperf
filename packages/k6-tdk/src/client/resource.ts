@@ -15,7 +15,7 @@ export class Resource extends EndpointClient {
       case Platform.nextcloud:
         response = endpoints.dav.files.MKCOL__create_resource(this.httpClient, p)
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.dav.spaces.MKCOL__create_resource(this.httpClient, { ...p, driveId: p.root })
     }
@@ -36,7 +36,7 @@ export class Resource extends EndpointClient {
       case Platform.nextcloud:
         response = endpoints.dav.files.DELETE__delete_resource(this.httpClient, p)
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.dav.spaces.DELETE__delete_resource(this.httpClient, { ...p, driveId: p.root })
     }
@@ -57,7 +57,7 @@ export class Resource extends EndpointClient {
       case Platform.nextcloud:
         response = endpoints.dav.files.MOVE__move_resource(this.httpClient, p)
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.dav.spaces.MOVE__move_resource(this.httpClient, { ...p, driveId: p.root })
     }
@@ -81,7 +81,7 @@ export class Resource extends EndpointClient {
         response = endpoints.dav.files.PROPFIND__get_properties_for_resource(this.httpClient,
           { ...p, propfindXml })
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.dav.spaces.PROPFIND__get_properties_for_resource(this.httpClient,
           { ...p, driveId: p.root, propfindXml })
@@ -103,7 +103,7 @@ export class Resource extends EndpointClient {
       case Platform.nextcloud:
         response = endpoints.dav.files.PUT__upload_resource(this.httpClient, p)
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.dav.spaces.PUT__upload_resource(this.httpClient, { ...p, driveId: p.root })
     }
@@ -124,7 +124,7 @@ export class Resource extends EndpointClient {
       case Platform.nextcloud:
         response = endpoints.dav.files.GET__download_resource(this.httpClient, p)
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.dav.spaces.GET__download_resource(this.httpClient,
           { ...p, driveId: p.root })

@@ -13,7 +13,7 @@ export class Application extends EndpointClient {
       case Platform.ownCloudServer:
       case Platform.nextcloud:
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.graph.v1.applications.GET__get_applications(this.httpClient, {})
     }

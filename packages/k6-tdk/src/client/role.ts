@@ -13,7 +13,7 @@ export class Role extends EndpointClient {
       case Platform.ownCloudServer:
       case Platform.nextcloud:
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.api.v0.settings.POST__get_roles(this.httpClient, {})
     }
@@ -37,7 +37,7 @@ export class Role extends EndpointClient {
       case Platform.ownCloudServer:
       case Platform.nextcloud:
         break
-      case Platform.ownCloudInfiniteScale:
+      case Platform.openCloud:
       default:
         response = endpoints.graph.v1.users.POST__add_app_role_to_user(this.httpClient, p)
     }

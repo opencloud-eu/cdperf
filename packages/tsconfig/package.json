@@ -1,16 +1,16 @@
 {
-  "name": "@ownclouders/tsconfig",
+  "name": "@opencloud-eu/tsconfig",
   "version": "0.0.1",
   "private": true,
-  "description": "common tsconfig used withing @ownclouders namespace.",
-  "homepage": "https://github.com/owncloud/cdperf/tree/master/packages/tsconfig",
+  "description": "common tsconfig used withing @opencloud-eu namespace.",
+  "homepage": "https://github.com/opencloud-eu/cdperf/tree/master/packages/tsconfig",
   "repository": {
     "type": "git",
-    "url": "https://github.com/owncloud/cdperf",
+    "url": "https://github.com/opencloud-eu/cdperf",
     "directory": "packages/tsconfig"
   },
   "license": "AGPL-3.0",
-  "author": "ownCloud GmbH <devops@owncloud.com>",
+  "author": "OpenCloud GmbH <devops@opencloud.eu>",
   "scripts": {
     "clean": "pnpm clean:vendor",
     "clean:vendor": "del-cli node_modules",
@@ -18,7 +18,7 @@
     "lint:fix": "pnpm run lint --fix"
   },
   "devDependencies": {
-    "@ownclouders/eslint-config": "workspace:*",
+    "@opencloud-eu/eslint-config": "workspace:*",
     "del-cli": "^5.0.0"
   }
 }

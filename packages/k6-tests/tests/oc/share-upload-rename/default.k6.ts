@@ -1,5 +1,5 @@
-import {  ENV, queryJson,  queryXml, randomString, store  } from '@ownclouders/k6-tdk/lib/utils'
-import { Permission, ShareType } from '@ownclouders/k6-tdk/lib/values'
+import {  ENV, queryJson,  queryXml, randomString, store  } from '@opencloud-eu/k6-tdk/lib/utils'
+import { Permission, ShareType } from '@opencloud-eu/k6-tdk/lib/values'
 import { randomBytes } from 'k6/crypto'
 import exec from 'k6/execution'
 import { Options } from 'k6/options'
