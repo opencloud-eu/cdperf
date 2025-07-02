@@ -1,0 +1,44 @@
+variables:
+  - &node_image 'owncloudci/nodejs:20'
+  - &gh_pages_image 'plugins/gh-pages:1'
+  - path: &when_path
+      - '.vitepress/**'
+      - '**/*.md'
+      - '.woodpecker/docs.yaml'
+
+when:
+  - event: push
+    path:
+      - <<: *when_path
+    branch:
+      - ${CI_REPO_DEFAULT_BRANCH}
+  - event: manual
+    evaluate: 'TASK == "docs"'
+
+steps:
+
+  build:
+    image: *node_image
+    commands:
+      - pnpm install --frozen-lockfile
+      - pnpm docs:build
+    when:
+      - path: *when_path
+        event: [push]
+      - event: manual
+
+  publish:
+    image: *gh_pages_image
+    settings:
+      username:
+        from_secret: github_username
+      password:
+        from_secret: github_token
+      pages_directory: .vitepress/dist
+      copy_contents: true
+      target_branch: cdperf-docs
+      delete: true
+    when:
+      - path: *when_path
+        event: [push]
+      - event: manual
