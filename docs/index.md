@@ -2,11 +2,11 @@
 layout: home
 
 title: cdPerf
-titleTemplate: openCloud cloud testing toolbox
+titleTemplate: OpenCloud cloud testing toolbox
 
 hero:
   name: cdPerf
-  text: openCloud cloud testing toolbox
+  text: OpenCloud cloud testing toolbox
   tagline: Tools we use to test and measure the performance of different cloud systems.
   actions:
     - theme: brand

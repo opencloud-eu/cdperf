@@ -1,4 +1,4 @@
-# openCloud cloud testing toolbox
+# OpenCloud cloud testing toolbox
 
 This repository contains the tools we use to test and measure the performance of different cloud systems.
 
@@ -6,7 +6,7 @@ For detailed information on how to run and write new tests,
 please read [the cdperf documentation](https://docs.opencloud.eu/cdperf/).
 
 ## Supported clouds
-* [openCloud](https://github.com/opencloud-eu/opencloud)
+* [OpenCloud](https://github.com/opencloud-eu/opencloud)
 * [ownCloud Core](https://github.com/owncloud/core)
 * [Nextcloud](https://github.com/nextcloud/server/)
 

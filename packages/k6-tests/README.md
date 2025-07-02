@@ -1,4 +1,4 @@
-# openCloud cloud testing toolbox
+# OpenCloud cloud testing toolbox
 This repository contains the tools we use to test and measure the performance of different cloud systems.
 
 ## Quickstart
@@ -106,9 +106,9 @@ It's important to know how to compare the tests against each other and what thos
 * Docker for Mac is slow on file operations compared to linux
 * Sometimes it's possible that one of the clouds will fail on some operations. Keep in mind that it's not valid to compare a test with failures against a test where all checks are green
 
-**Test setup at openCloud:**
+**Test setup at OpenCloud:**
 
-At openCloud, k6 is used to compare the performance of the products during development. It is very helpful to understand how changes to the codebase affect the performance, between releases, but also between single commits.
+At OpenCloud, k6 is used to compare the performance of the products during development. It is very helpful to understand how changes to the codebase affect the performance, between releases, but also between single commits.
 
 The first test run, runs the tests on A which is testing a server on B and then B which is testing on A.
 We collect those metrics over time to get indicators of how the performance changes over time (version to version) and how the clouds perform in comparison to each other.

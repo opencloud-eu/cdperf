@@ -9,7 +9,7 @@ To solve that, the idea is to model typical scenarios for EFSS cloud installatio
 
 There needs to be a standardized process to collect data that allows a valid comparison. It needs to be repeatable and clearly specified.
 
-For that, we developed a tool called cdperf. cdperf is based on [k6](https://k6.io). It automates running certain test setups for currently three different test candidates: ownCloud 10, openCloud and NextCloud.
+For that, we developed a tool called cdperf. cdperf is based on [k6](https://k6.io). It automates running certain test setups for currently three different test candidates: ownCloud 10, OpenCloud and NextCloud.
 
 ## Influential Parameters
 
@@ -29,7 +29,7 @@ By default, it uses the officially provided docker containers of the cloud flavo
 
 ### Runtime Configuration
 
-Especially for a distributed system like openCloud it is important how the runtime manages the services. Are they run as separate processes, system threads or go co-routines? That influences how many operations can be parallelized and how many processor cores can be used at the same time.
+Especially for a distributed system like OpenCloud it is important how the runtime manages the services. Are they run as separate processes, system threads or go co-routines? That influences how many operations can be parallelized and how many processor cores can be used at the same time.
 
 ### Concurrent Access
 

@@ -15,7 +15,7 @@ the testing steps as a whole will run 10 times (5 times per user).
 
 ## Compatibility
 
-* :white_check_mark: openCloud
+* :white_check_mark: OpenCloud
 * :x: ownCloud Server
 * :x: Nextcloud
 
