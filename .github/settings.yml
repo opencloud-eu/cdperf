@@ -1,0 +1,7 @@
+_extends: gh-labels
+
+repository:
+  name: cdperf
+  description: '🚀 cloud performance test'
+  homepage: https://opencloud.eu
+  has_wiki: false
