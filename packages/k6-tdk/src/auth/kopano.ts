@@ -95,7 +95,7 @@ export class Kopano implements AuthNHTTPProvider {
       throw new Error(`logonResponse.status is ${logonResponse.status}, expected 200`)
     }
 
-    return get(logonResponse.json(), 'hello.continue_uri', '')
+    return get(logonResponse.json(), 'hello.continue_uri', '') as string
   }
 
   private getCode(continueUrl: string): string {
