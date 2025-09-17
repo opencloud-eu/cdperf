@@ -1,27 +1,27 @@
-import { RefinedResponse, RequestBody } from 'k6/http'
+import {RefinedResponse, RequestBody} from 'k6/http'
 
-import { endpoints } from '@/endpoints'
-import { check } from '@/utils'
-import { Platform } from '@/values'
+import {endpoints} from '@/endpoints'
+import {check} from '@/utils'
+import {Platform} from '@/values'
 
-import { EndpointClient } from './client'
-import { RESOURCE__get_resource_properties } from './xml'
+import {EndpointClient} from './client'
+import {RESOURCE__get_resource_properties} from './xml'
 
 export class Resource extends EndpointClient {
   createResource(p: { root: string, resourcePath: string }): RefinedResponse<'none'> {
     let response: RefinedResponse<'none'>
     switch (this.platform) {
-      case Platform.ownCloudServer:
       case Platform.nextcloud:
+      case Platform.ownCloudServer:
         response = endpoints.dav.files.MKCOL__create_resource(this.httpClient, p)
         break
       case Platform.openCloud:
       default:
-        response = endpoints.dav.spaces.MKCOL__create_resource(this.httpClient, { ...p, driveId: p.root })
+        response = endpoints.dav.spaces.MKCOL__create_resource(this.httpClient, {...p, driveId: p.root})
     }
 
-    check({ val: response }, {
-      'client -> resource.createResource - status': ({ status }) => {
+    check({val: response}, {
+      'client -> resource.createResource - status': ({status}) => {
         return status === 201
       }
     })
@@ -38,11 +38,11 @@ export class Resource extends EndpointClient {
         break
       case Platform.openCloud:
       default:
-        response = endpoints.dav.spaces.DELETE__delete_resource(this.httpClient, { ...p, driveId: p.root })
+        response = endpoints.dav.spaces.DELETE__delete_resource(this.httpClient, {...p, driveId: p.root})
     }
 
-    check({ val: response }, {
-      'client -> resource.deleteResource - status': ({ status }) => {
+    check({val: response}, {
+      'client -> resource.deleteResource - status': ({status}) => {
         return status === 204
       }
     })
@@ -52,18 +52,19 @@ export class Resource extends EndpointClient {
 
   moveResource(p: { root: string, fromResourcePath: string, toResourcePath: string }): RefinedResponse<'none'> {
     let response: RefinedResponse<'none'>
+
     switch (this.platform) {
-      case Platform.ownCloudServer:
       case Platform.nextcloud:
+      case Platform.ownCloudServer:
         response = endpoints.dav.files.MOVE__move_resource(this.httpClient, p)
         break
       case Platform.openCloud:
       default:
-        response = endpoints.dav.spaces.MOVE__move_resource(this.httpClient, { ...p, driveId: p.root })
+        response = endpoints.dav.spaces.MOVE__move_resource(this.httpClient, {...p, driveId: p.root})
     }
 
-    check({ val: response }, {
-      'client -> resource.moveResource - status': ({ status }) => {
+    check({val: response}, {
+      'client -> resource.moveResource - status': ({status}) => {
         return status === 201
       }
     })
@@ -79,16 +80,16 @@ export class Resource extends EndpointClient {
       case Platform.ownCloudServer:
       case Platform.nextcloud:
         response = endpoints.dav.files.PROPFIND__get_properties_for_resource(this.httpClient,
-          { ...p, propfindXml })
+          {...p, propfindXml})
         break
       case Platform.openCloud:
       default:
         response = endpoints.dav.spaces.PROPFIND__get_properties_for_resource(this.httpClient,
-          { ...p, driveId: p.root, propfindXml })
+          {...p, driveId: p.root, propfindXml})
     }
 
-    check({ val: response }, {
-      'client -> resource.getResourceProperties - status': ({ status }) => {
+    check({val: response}, {
+      'client -> resource.getResourceProperties - status': ({status}) => {
         return status === 207
       }
     })
@@ -98,18 +99,19 @@ export class Resource extends EndpointClient {
 
   uploadResource(p: { resourcePath: string, root: string, resourceBytes: RequestBody }): RefinedResponse<'none'> {
     let response: RefinedResponse<'none'>
+
     switch (this.platform) {
-      case Platform.ownCloudServer:
       case Platform.nextcloud:
+      case Platform.ownCloudServer:
         response = endpoints.dav.files.PUT__upload_resource(this.httpClient, p)
         break
       case Platform.openCloud:
       default:
-        response = endpoints.dav.spaces.PUT__upload_resource(this.httpClient, { ...p, driveId: p.root })
+        response = endpoints.dav.spaces.PUT__upload_resource(this.httpClient, {...p, driveId: p.root})
     }
 
-    check({ val: response }, {
-      'client -> resource.uploadResource - status': ({ status }) => {
+    check({val: response}, {
+      'client -> resource.uploadResource - status': ({status}) => {
         return status === 201
       }
     })
@@ -127,11 +129,11 @@ export class Resource extends EndpointClient {
       case Platform.openCloud:
       default:
         response = endpoints.dav.spaces.GET__download_resource(this.httpClient,
-          { ...p, driveId: p.root })
+          {...p, driveId: p.root})
     }
 
-    check({ val: response }, {
-      'client -> resource.downloadResource - status': ({ status }) => {
+    check({val: response}, {
+      'client -> resource.downloadResource - status': ({status}) => {
         return status === 200
       }
     })

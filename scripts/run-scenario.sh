@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-ENV_ROOT_DIR="${ROOT_DIR}/env/${2}"
-SETUP_DIR="${ENV_ROOT_DIR}/setup"
+SCENARIO_ROOT_DIR="${ROOT_DIR}/scenarios/${2}"
+SETUP_DIR="${SCENARIO_ROOT_DIR}/setup"
 
 load_env () {
   local env_file="$1"
@@ -15,7 +15,7 @@ load_env () {
   fi
 }
 
-load_env "${ENV_ROOT_DIR}/.env"
+load_env "${SCENARIO_ROOT_DIR}/.env"
 load_env "${SETUP_DIR}/setup"
 
 case "$1" in
@@ -27,7 +27,7 @@ case "$1" in
     k6 run "${ROOT_DIR}/packages/k6-tests/artifacts/_seeds-up-k6.js"
     ;;
   "run")
-    RESULT_DIR="${ENV_ROOT_DIR}/result"
+    RESULT_DIR="${SCENARIO_ROOT_DIR}/result"
     mkdir -p "$RESULT_DIR"
 
    for setup in $(find "$SETUP_DIR"/setup_* | sort -V); do
@@ -39,8 +39,8 @@ case "$1" in
       source "$setup"
 
       k6 run "${ROOT_DIR}/packages/k6-tests/artifacts/koko-platform-000-mixed-ramping-k6.js" \
-              --summary-export "${RESULT_DIR}/$(basename "$setup").json" \
-              --log-output file="${RESULT_DIR}/$(basename "$setup").log"
+                            --summary-export "${RESULT_DIR}/$(basename "$setup").json" \
+                            --log-output file="${RESULT_DIR}/$(basename "$setup").log"
     done
     ;;
   *)

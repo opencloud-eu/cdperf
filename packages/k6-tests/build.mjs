@@ -8,13 +8,14 @@ const outdir = 'artifacts'
 const buildToFromMap = (glob, stripExtension = false) => {
   return fg.sync(glob).reduce((acc, from) => {
     const fromInfo = path.parse(from)
-    const [src, ...namespace] = fromInfo.dir.split('/');
+    const [_, src, ...namespace] = fromInfo.dir.split('/');
 
     let to = [...namespace, fromInfo.name].join('-').replace(/[._]/g, '-')
 
     if (!stripExtension) {
       to = to + fromInfo.ext
     }
+
     if (src === 'src'){
       to = '_' + to
     }

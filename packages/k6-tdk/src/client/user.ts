@@ -8,10 +8,13 @@ import { EndpointClient } from './client'
 
 export class User extends EndpointClient {
   createUser(p: { userLogin: string, userPassword: string }): RefinedResponse<'text'> {
+    let expectedStatus = 201
     let response: RefinedResponse<'text'>
     switch (this.platform) {
-      case Platform.ownCloudServer:
       case Platform.nextcloud:
+        expectedStatus = 200
+      // noinspection FallThroughInSwitchStatementJS
+      case Platform.ownCloudServer:
         response = endpoints.ocs.v2.apps.cloud.users.POST__create_user(this.httpClient, p)
         break
       case Platform.openCloud:
@@ -21,7 +24,7 @@ export class User extends EndpointClient {
 
     check({ val: response }, {
       'client -> user.createUser - status': ({ status }) => {
-        return status === 201
+        return status === expectedStatus
       }
     })
 
@@ -53,11 +56,14 @@ export class User extends EndpointClient {
   }
 
   enableUser(p: { userLogin: string }): RefinedResponse<'text'> | undefined {
+    let expectedStatus = 200
     let response: RefinedResponse<'text'> | undefined
 
     switch (this.platform) {
-      case Platform.ownCloudServer:
       case Platform.nextcloud:
+        expectedStatus = 200
+      // noinspection FallThroughInSwitchStatementJS
+      case Platform.ownCloudServer:
         response = endpoints.ocs.v2.apps.cloud.users.PUT__enable_user(this.httpClient, p)
         break
       case Platform.openCloud:
