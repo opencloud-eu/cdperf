@@ -9,4 +9,4 @@ node_modules
 cache
 /packages/k6-tests/artifacts
 .env
-env/*/result
+scenarios/*/result

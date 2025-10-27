@@ -22,9 +22,10 @@ export class Tag extends EndpointClient {
     } = p
 
     let response: RefinedResponse<'none'> | undefined
+
     switch (this.platform) {
-      case Platform.ownCloudServer:
       case Platform.nextcloud:
+      case Platform.ownCloudServer:
         response = endpoints.dav.systemtags.POST__create_tag(this.httpClient, {
           tagName,
           userAssignableTag,

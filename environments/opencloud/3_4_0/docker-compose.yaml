@@ -1,0 +1,20 @@
+services:
+  opencloud:
+    image: quay.io/opencloudeu/opencloud-rolling:3.4.0
+    restart: always
+    ports:
+      - 9200:9200
+    entrypoint:
+      - /bin/sh
+    command: ["-c", "opencloud init || true; opencloud server"]
+    environment:
+      - OC_URL=https://oc.home.arpa:9200
+      - IDM_CREATE_DEMO_USERS=false
+      - IDM_ADMIN_PASSWORD=admin
+      - OC_INSECURE=true
+    volumes:
+      - opencloud_config:/etc/opencloud
+      - opencloud_data:/var/lib/opencloud
+volumes:
+  opencloud_config:
+  opencloud_data:

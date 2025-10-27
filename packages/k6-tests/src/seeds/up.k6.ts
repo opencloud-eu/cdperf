@@ -1,13 +1,13 @@
-import { noop, queryJson } from '@opencloud-eu/k6-tdk/lib/utils'
-import { randomBytes } from 'k6/crypto'
-import { Options } from 'k6/options'
+import {noop, queryJson} from '@opencloud-eu/k6-tdk/lib/utils'
+import {randomBytes} from 'k6/crypto'
+import {Options} from 'k6/options'
 
-import { createCalendar, createCalendarResource } from '@/mock'
-import { groupPool, userPool } from '@/pools'
-import { clientFor, shareResource } from '@/shortcuts'
-import { createTestRoot } from '@/test'
-import { getPoolItems } from '@/utils'
-import { envValues } from '@/values'
+import {createCalendar, createCalendarResource} from '@/mock'
+import {groupPool, userPool} from '@/pools'
+import {clientFor, shareResource} from '@/shortcuts'
+import {createTestRoot} from '@/test'
+import {getPoolItems} from '@/utils'
+import {envValues} from '@/values'
 
 export const options: Options = {
   vus: 1,
@@ -18,7 +18,7 @@ export const options: Options = {
 export async function setup(): Promise<void> {
   const values = envValues()
 
-  const adminClient = clientFor({ userLogin: values.admin.login, userPassword: values.admin.password })
+  const adminClient = clientFor({userLogin: values.admin.login, userPassword: values.admin.password})
   const testRoot = await createTestRoot({
     client: adminClient,
     resourceName: values.seed.container.name,
@@ -27,18 +27,20 @@ export async function setup(): Promise<void> {
     platform: values.platform.type
   })
 
+
+  let groupIdsOrNames: Array<string> = []
   /**
    * groups
    */
   if (values.seed.groups.create) {
-    const poolGroups = getPoolItems({ pool: groupPool, n: values.seed.groups.total })
+    const poolGroups = getPoolItems({pool: groupPool, n: values.seed.groups.total})
     await Promise.all(
-      poolGroups.map(async ({ groupName }) => {
-        const createGroupResponse = adminClient.group.createGroup({ groupName })
+      poolGroups.map(async ({groupName}) => {
+        const createGroupResponse = adminClient.group.createGroup({groupName})
         const [groupId] = queryJson('id', createGroupResponse.body)
         const groupIdOrName = groupId || groupName
-
-        noop(groupIdOrName)
+        groupIdsOrNames.push(groupIdOrName)
+        noop(groupIdsOrNames)
       })
     )
   }
@@ -48,7 +50,7 @@ export async function setup(): Promise<void> {
    */
   {
     if (values.seed.users.create) {
-      const poolUsers = getPoolItems({ pool: userPool, n: values.seed.users.total })
+      const poolUsers = getPoolItems({pool: userPool, n: values.seed.users.total})
       const getRolesResponse = adminClient.role.getRoles()
       const [appRoleId] = queryJson("$.bundles[?(@.name === 'spaceadmin')].id", getRolesResponse?.body)
 
@@ -61,7 +63,10 @@ export async function setup(): Promise<void> {
           const [principalId] = queryJson('$.id', createUserResponse.body)
 
           await adminClient.user.enableUser(user)
-          await adminClient.role.addRoleToUser({ appRoleId, resourceId, principalId })
+          await adminClient.role.addRoleToUser({appRoleId, resourceId, principalId})
+          //await Promise.all(groupIdsOrNames.map(async (groupIdOrName) => {
+          //  await adminClient.group.addGroupMember({groupIdOrName, memberId: principalId})
+          //}))
 
           const shareId = await shareResource({
             client: adminClient,
@@ -73,7 +78,7 @@ export async function setup(): Promise<void> {
 
           if (shareId) {
             const userClient = clientFor(user)
-            await userClient.share.acceptShare({ shareId })
+            await userClient.share.acceptShare({shareId})
           }
         })
       )
@@ -120,20 +125,20 @@ export async function setup(): Promise<void> {
     })
 
     await Promise.all(calendar.y.map(async (y) => {
-      await adminClient.resource.createResource({ root: [testRoot.root, testRoot.path].join('/'), resourcePath: y })
+      await adminClient.resource.createResource({root: [testRoot.root, testRoot.path].join('/'), resourcePath: y})
     }))
 
     await Promise.all(calendar.m.map(async (m) => {
-      await adminClient.resource.createResource({ root: [testRoot.root, testRoot.path].join('/'), resourcePath: m })
+      await adminClient.resource.createResource({root: [testRoot.root, testRoot.path].join('/'), resourcePath: m})
     }))
 
     await Promise.all(calendar.d.map(async (d) => {
-      await adminClient.resource.createResource({ root: [testRoot.root, testRoot.path].join('/'), resourcePath: d })
+      await adminClient.resource.createResource({root: [testRoot.root, testRoot.path].join('/'), resourcePath: d})
     }))
 
     await Promise.all(
       calendar.d.map(async (v) => {
-        const calendarResource = createCalendarResource({ v })
+        const calendarResource = createCalendarResource({v})
         await adminClient.resource.uploadResource({
           root: [testRoot.root, testRoot.path].join('/'),
           resourcePath: calendarResource.resourcePath,
