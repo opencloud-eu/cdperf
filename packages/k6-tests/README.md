@@ -17,7 +17,7 @@ k6 run packages/k6-tests/artifacts/_seeds-up-k6.js
 To add more users set the number of desired VUs and rerun the tests. There will be errors for the users that already exist, but the remaining users will be created.
 
 ### Simple test with static number of users 
-To run a simple test, the number of VUs that should be simulated to execute the test scenario for the given number of iterations pick one of the existing tests. Thear name should describe what the user will be doing. Every test will wait between requests to simulate actual user behavior and not just hammer the server with requests.
+To run a simple test, the number of VUs that should be simulated to execute the test scenario for the given number of iterations pick one of the existing tests. The name should describe what the user will be doing. Every test will wait between requests to simulate actual user behavior and not just hammer the server with requests.
 ```shell
 ADMIN_LOGIN=admin \
 ADMIN_PASSWORD=admin \
