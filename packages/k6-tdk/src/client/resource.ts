@@ -29,7 +29,7 @@ export class Resource extends EndpointClient {
     return response
   }
 
-  deleteResource(p: { resourcePath: string, root: string }): RefinedResponse<'none'> {
+  deleteResource(p: { resourcePath: string, root: string }, v?: {allowStatus?: Array<number>}): RefinedResponse<'none'> {
     let response: RefinedResponse<'none'>
     switch (this.platform) {
       case Platform.ownCloudServer:
@@ -43,7 +43,7 @@ export class Resource extends EndpointClient {
 
     check({val: response}, {
       'client -> resource.deleteResource - status': ({status}) => {
-        return status === 204
+        return [204, ...(v?.allowStatus || [])].includes(status)
       }
     })
 
@@ -97,7 +97,7 @@ export class Resource extends EndpointClient {
     return response
   }
 
-  uploadResource(p: { resourcePath: string, root: string, resourceBytes: RequestBody }): RefinedResponse<'none'> {
+  uploadResource(p: { resourcePath: string, root: string, resourceBytes: RequestBody }, v?: {allowStatus?: Array<number>}): RefinedResponse<'none'> {
     let response: RefinedResponse<'none'>
 
     switch (this.platform) {
@@ -112,7 +112,7 @@ export class Resource extends EndpointClient {
 
     check({val: response}, {
       'client -> resource.uploadResource - status': ({status}) => {
-        return status === 201
+        return [201, 204, ...(v?.allowStatus || [])].includes(status)
       }
     })
 
