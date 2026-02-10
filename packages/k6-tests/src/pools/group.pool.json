@@ -1,6 +1,12 @@
 [
   {
     "groupName": "perf-test-group-1"
+  },
+  {
+    "groupName": "perf-test-group-2"
+  },
+  {
+    "groupName": "perf-test-group-3"
   }
 ]
 

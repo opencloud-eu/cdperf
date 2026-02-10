@@ -17,13 +17,13 @@ export const shareResource = async (p: {
   } as any
 
   if (p.type === TestRootType.space) {
-    params.shareType = ShareType.spaceMembershipUser
+    params.shareType = ShareType.spaceMembershipGroup
     params.shareReceiverPermission = Permission.coOwner
     params.spaceRef = p.root
   }
 
   if (p.type === TestRootType.directory) {
-    params.shareType = ShareType.user
+    params.shareType = ShareType.group
     params.shareReceiverPermission = Permission.all
   }
 

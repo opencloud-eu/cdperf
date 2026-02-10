@@ -18,8 +18,9 @@ export async function setup(): Promise<void> {
 
   if (values.seed.groups.delete) {
     const getGroupsResponse = await adminClient.group.getGroups()
-    const availableGroups = JSON.parse(getGroupsResponse!.body).value
-    const consideredGroups = groupPool.map((pg) => {
+    const availableGroups = JSON.parse(getGroupsResponse?.body || '[]').value || []
+
+    const consideredGroups = getPoolItems({pool: groupPool, n: values.seed.groups.total}).map((pg) => {
       const group: {
         id: string,
         displayName: string
@@ -27,7 +28,7 @@ export async function setup(): Promise<void> {
         return pg.groupName === displayName
       })
 
-      return group ? { groupId: group.id, groupName: group.id } : undefined
+      return group ? { groupId: group.id, groupName: group.id } : { groupId: undefined, groupName: pg.groupName }
     }).filter((maybeGroup): maybeGroup is { groupId: string, groupName: string } => {
       return !!maybeGroup
     })
