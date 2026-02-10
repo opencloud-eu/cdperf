@@ -19,12 +19,19 @@ load_env "${SCENARIO_ROOT_DIR}/.env"
 load_env "${SETUP_DIR}/setup"
 
 case "$1" in
-  "bootstrap")
+  "bootstrap-up")
     echo "########################################"
-    echo "Bootstrapping: $2"
+    echo "Bootstrap up: $2"
     echo "########################################"
 
     k6 run "${ROOT_DIR}/packages/k6-tests/artifacts/_seeds-up-k6.js"
+    ;;
+  "bootstrap-down")
+    echo "########################################"
+    echo "Bootstrap down: $2"
+    echo "########################################"
+
+    k6 run "${ROOT_DIR}/packages/k6-tests/artifacts/_seeds-down-k6.js"
     ;;
   "run")
     RESULT_DIR="${SCENARIO_ROOT_DIR}/result"
