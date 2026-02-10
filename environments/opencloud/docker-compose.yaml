@@ -1,6 +1,6 @@
 services:
   opencloud:
-    image: quay.io/opencloudeu/opencloud-rolling:3.4.0
+    image: quay.io/opencloudeu/opencloud-rolling:5.0.1
     restart: always
     ports:
       - 9200:9200
@@ -8,10 +8,10 @@ services:
       - /bin/sh
     command: ["-c", "opencloud init || true; opencloud server"]
     environment:
-      - OC_URL=https://oc.home.arpa:9200
-      - IDM_CREATE_DEMO_USERS=false
-      - IDM_ADMIN_PASSWORD=admin
-      - OC_INSECURE=true
+      OC_URL: ${OC_URL:-https://localhost:9200}
+      IDM_CREATE_DEMO_USERS: ${IDM_CREATE_DEMO_USERS:-false}
+      IDM_ADMIN_PASSWORD: ${IDM_ADMIN_PASSWORD:-admin}
+      OC_INSECURE: ${OC_INSECURE:-true}
     volumes:
       - opencloud_config:/etc/opencloud
       - opencloud_data:/var/lib/opencloud
