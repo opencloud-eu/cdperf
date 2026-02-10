@@ -7,7 +7,7 @@ import {Platform} from '@/values'
 import {EndpointClient} from './client'
 
 export class Group extends EndpointClient {
-  getGroups(): RefinedResponse<'text'> | undefined {
+  async getGroups(): Promise<RefinedResponse<'text'> | undefined> {
     let response: RefinedResponse<'text'> | undefined
     switch (this.platform) {
       case Platform.ownCloudServer:
@@ -27,7 +27,7 @@ export class Group extends EndpointClient {
     return response
   }
 
-  createGroup(p: { groupName: string }): RefinedResponse<'text'> {
+  async createGroup(p: { groupName: string }): Promise<RefinedResponse<'text'>> {
     let expectedStatus = 201
     let response: RefinedResponse<'text'>
 
@@ -52,7 +52,7 @@ export class Group extends EndpointClient {
     return response
   }
 
-  deleteGroup(p: { groupIdOrName: string }): RefinedResponse<'text' | 'none'> {
+  async deleteGroup(p: { groupIdOrName: string }): Promise<RefinedResponse<'text' | 'none'>> {
     let response: RefinedResponse<'text' | 'none'>
     let expectedStatus: number
     switch (this.platform) {

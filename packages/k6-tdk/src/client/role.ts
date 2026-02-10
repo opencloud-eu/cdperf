@@ -7,7 +7,7 @@ import { Platform } from '@/values'
 import { EndpointClient } from './client'
 
 export class Role extends EndpointClient {
-  getRoles(): RefinedResponse<'text'> | undefined {
+  async getRoles(): Promise<RefinedResponse<'text'> | undefined> {
     let response: RefinedResponse<'text'> | undefined
     switch (this.platform) {
       case Platform.ownCloudServer:
@@ -27,11 +27,11 @@ export class Role extends EndpointClient {
     return response
   }
 
-  addRoleToUser(p: {
+  async addRoleToUser(p: {
     principalId: string,
     appRoleId: string,
     resourceId: string
-  }): RefinedResponse<'text'> | undefined {
+  }): Promise<RefinedResponse<'text'> | undefined> {
     let response: RefinedResponse<'text'> | undefined
     switch (this.platform) {
       case Platform.ownCloudServer:

@@ -7,7 +7,7 @@ import { Platform } from '@/values'
 import { EndpointClient } from './client'
 
 export class User extends EndpointClient {
-  createUser(p: { userLogin: string, userPassword: string }): RefinedResponse<'text'> {
+  async createUser(p: { userLogin: string, userPassword: string }): Promise<RefinedResponse<'text'>> {
     let expectedStatus = 201
     let response: RefinedResponse<'text'>
     switch (this.platform) {
@@ -31,7 +31,7 @@ export class User extends EndpointClient {
     return response
   }
 
-  deleteUser(p: { userLogin: string }): RefinedResponse<'text' | 'none'> {
+  async deleteUser(p: { userLogin: string }): Promise<RefinedResponse<'text' | 'none'>> {
     let expectedStatus: number
     let response: RefinedResponse<'text' | 'none'>
     switch (this.platform) {
@@ -55,7 +55,7 @@ export class User extends EndpointClient {
     return response
   }
 
-  enableUser(p: { userLogin: string }): RefinedResponse<'text'> | undefined {
+  async enableUser(p: { userLogin: string }): Promise<RefinedResponse<'text'> | undefined> {
     let expectedStatus = 200
     let response: RefinedResponse<'text'> | undefined
 

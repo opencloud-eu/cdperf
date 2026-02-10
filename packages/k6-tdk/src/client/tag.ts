@@ -8,12 +8,12 @@ import { EndpointClient } from './client'
 import { TAG__get_tags, TAG__get_tags_for_resource } from './xml'
 
 export class Tag extends EndpointClient {
-  createTag(p: {
+  async createTag(p: {
     tagName: string,
     canAssignTag?: boolean,
     userAssignableTag?: boolean,
     userVisibleTag?: boolean
-  }): RefinedResponse<'none'> | undefined {
+  }): Promise<RefinedResponse<'none'> | undefined> {
     const {
       tagName,
       userAssignableTag = true,
@@ -46,7 +46,7 @@ export class Tag extends EndpointClient {
     return response
   }
 
-  deleteTag(p: { tag: string }): RefinedResponse<'none'> | undefined {
+  async deleteTag(p: { tag: string }): Promise<RefinedResponse<'none'> | undefined> {
     let response: RefinedResponse<'none'>| undefined
     switch (this.platform) {
       case Platform.ownCloudServer:
@@ -66,7 +66,7 @@ export class Tag extends EndpointClient {
     return response
   }
 
-  getTags(): RefinedResponse<'text'> | undefined {
+  async getTags(): Promise<RefinedResponse<'text'> | undefined> {
     let response: RefinedResponse<'text'>| undefined
     switch (this.platform) {
       case Platform.ownCloudServer:
@@ -88,7 +88,7 @@ export class Tag extends EndpointClient {
     return response
   }
 
-  addTagToResource(p: { resourceId: string, tag: string }): RefinedResponse<'none'> {
+  async addTagToResource(p: { resourceId: string, tag: string }): Promise<RefinedResponse<'none'>> {
     let response: RefinedResponse<'none'>
     let expectedStatus: number
     switch (this.platform) {
@@ -118,7 +118,7 @@ export class Tag extends EndpointClient {
     return response
   }
 
-  removeTagFromResource(p: { resourceId: string, tag: string }): RefinedResponse<'none'> {
+  async removeTagFromResource(p: { resourceId: string, tag: string }): Promise<RefinedResponse<'none'>> {
     let response: RefinedResponse<'none'>
     let expectedStatus: number
     switch (this.platform) {
@@ -148,7 +148,7 @@ export class Tag extends EndpointClient {
     return response
   }
 
-  getTagsForResource(p: { root: string, resourceId: string, resourcePath: string }): RefinedResponse<'text'> {
+  async getTagsForResource(p: { root: string, resourceId: string, resourcePath: string }): Promise<RefinedResponse<'text'>> {
     const propfindXml = TAG__get_tags_for_resource[this.platform]({})
 
     let response: RefinedResponse<'text'>

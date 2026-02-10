@@ -1,11 +1,11 @@
-import {  ENV, queryJson,  randomString, store  } from '@opencloud-eu/k6-tdk/lib/utils'
-import { randomBytes } from 'k6/crypto'
+import {ENV, queryJson, randomString, store} from '@opencloud-eu/k6-tdk/lib/utils'
+import {randomBytes} from 'k6/crypto'
 import exec from 'k6/execution'
-import { Options } from 'k6/options'
-import { times } from 'lodash'
+import {Options} from 'k6/options'
+import {times} from 'lodash'
 
-import { clientFor } from '@/shortcuts'
-import { envValues } from '@/values'
+import {clientFor} from '@/shortcuts'
+import {envValues} from '@/values'
 
 interface Environment {
   actorData: {
@@ -29,17 +29,18 @@ export const options: Options = {
   vus: 1,
   insecureSkipTLSVerify: true
 }
-export function setup(): Environment {
-  const adminClient = clientFor({ userLogin: settings.admin.login, userPassword: settings.admin.password })
 
-  const actorData = times(options.vus || 1, () => {
+export async function setup(): Promise<Environment> {
+  const adminClient = clientFor({userLogin: settings.admin.login, userPassword: settings.admin.password})
+
+  const actorData = await Promise.all(times(options.vus || 1, async () => {
     const [actorLogin, actorPassword] = [randomString(), randomString()]
-    const createUserResponse = adminClient.user.createUser({ userLogin: actorLogin, userPassword: actorPassword })
+    const createUserResponse = await adminClient.user.createUser({userLogin: actorLogin, userPassword: actorPassword})
     const [actorId] = queryJson('$.id', createUserResponse.body)
-    adminClient.user.enableUser({ userLogin: actorLogin })
+    adminClient.user.enableUser({userLogin: actorLogin})
 
-    const actorClient = clientFor({ userLogin: actorLogin, userPassword: actorPassword })
-    const getMyDrivesResponse = actorClient.me.getMyDrives({ params: { $filter: "driveType eq 'personal'" } })
+    const actorClient = clientFor({userLogin: actorLogin, userPassword: actorPassword})
+    const getMyDrivesResponse = await actorClient.me.getMyDrives({params: {$filter: "driveType eq 'personal'"}})
     const [actorRoot = actorLogin] = queryJson("$.value[?(@.driveType === 'personal')].id", getMyDrivesResponse?.body)
 
     return {
@@ -48,19 +49,20 @@ export function setup(): Environment {
       actorId,
       actorRoot
     }
-  })
+  }))
 
   return {
     actorData
   }
+
 }
 
-export default async function actor({ actorData }: Environment): Promise<void> {
-  const { actorLogin, actorPassword, actorRoot } = actorData[exec.vu.idInTest - 1]
+export default async function actor({actorData}: Environment): Promise<void> {
+  const {actorLogin, actorPassword, actorRoot} = actorData[exec.vu.idInTest - 1]
   const actorStore = store(actorLogin)
 
   const actorClient = await actorStore.setOrGet('client', async () => {
-    return clientFor({ userLogin: actorLogin, userPassword: actorPassword })
+    return clientFor({userLogin: actorLogin, userPassword: actorPassword})
   })
   const data = randomBytes(settings.assets.size * 1000)
 
@@ -73,10 +75,10 @@ export default async function actor({ actorData }: Environment): Promise<void> {
   })
 }
 
-export function teardown({ actorData }: Environment): void {
-  const adminClient = clientFor({ userLogin: settings.admin.login, userPassword: settings.admin.password })
+export function teardown({actorData}: Environment): void {
+  const adminClient = clientFor({userLogin: settings.admin.login, userPassword: settings.admin.password})
 
-  actorData.forEach(({ actorLogin }) => {
-    adminClient.user.deleteUser({ userLogin: actorLogin })
+  actorData.forEach(({actorLogin}) => {
+    adminClient.user.deleteUser({userLogin: actorLogin})
   })
 }

@@ -7,7 +7,7 @@ import { Platform } from '@/values'
 import { EndpointClient } from './client'
 
 export class Me extends EndpointClient {
-  getMyProfile(): RefinedResponse<'text'> | undefined {
+  async getMyProfile(): Promise<RefinedResponse<'text'> | undefined> {
     let response: RefinedResponse<'text'> | undefined
     switch (this.platform) {
       case Platform.ownCloudServer:
@@ -27,7 +27,7 @@ export class Me extends EndpointClient {
     return response
   }
 
-  getMyDrives(p: { params?: Record<string, unknown> }): RefinedResponse<'text'> | undefined {
+  async getMyDrives(p: { params?: Record<string, unknown> }): Promise<RefinedResponse<'text'> | undefined> {
     let response: RefinedResponse<'text'> | undefined
     switch (this.platform) {
       case Platform.ownCloudServer:
