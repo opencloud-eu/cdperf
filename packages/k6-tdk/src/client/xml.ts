@@ -28,6 +28,8 @@ export const RESOURCE__get_resource_properties: PlatformXml = {
   [Platform.openCloud]() {
     return createProlog()
       .ele(namespace.dav, 'propfind')
+      .ele(namespace.dav, 'name')
+      .ele(namespace.dav, 'getetag')
       .ele(namespace.dav, 'prop')
       .ele(namespace.oc, 'fileid').up()
       .ele(namespace.oc, 'tags').up()
