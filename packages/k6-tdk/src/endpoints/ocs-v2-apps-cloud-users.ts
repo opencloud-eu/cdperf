@@ -24,7 +24,17 @@ export const PUT__enable_user: Endpoint<{ userLogin: string }, 'text'> = (httpCl
 }
 
 export const DELETE__delete_user: Endpoint<{ userLogin: string }, 'text'> = (httpClient, { userLogin }) => {
-  return httpClient('DELETE', `/ocs/v2.php/cloud/users/${userLogin}`, undefined, {
+  return httpClient('DELETE', `/ocs/v1.php/cloud/users/${userLogin}`, undefined, {
+    headers: {
+      'OCS-APIRequest': 'true'
+    }
+  })
+}
+
+export const POST__add_user_to_group: Endpoint<{ groupId: string, memberId: string }, 'none'> = (httpClient, { groupId, memberId }) => {
+  return httpClient('POST', `/ocs/v2.php/cloud/users/${memberId}/groups`, {
+    groupid: groupId,
+  }, {
     headers: {
       'OCS-APIRequest': 'true'
     }

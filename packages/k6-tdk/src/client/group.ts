@@ -76,9 +76,27 @@ export class Group extends EndpointClient {
     return response
   }
 
-  addGroupMember(p: { groupIdOrName: string, memberId: string }): RefinedResponse<'text' | 'none'> {
-    const response = endpoints.graph.v1.groups.POST__add_group_member(this.httpClient, {groupId: p.groupIdOrName, memberId: p.memberId})
-    console.log(response)
+  async addGroupMember(p: { groupIdOrName: string, memberId: string }): Promise<RefinedResponse<'text' | 'none'>> {
+    let response: RefinedResponse<'text' | 'none'>
+    let expectedStatus: number
+    switch (this.platform) {
+      case Platform.ownCloudServer:
+      case Platform.nextcloud:
+        response = endpoints.ocs.v2.apps.cloud.users.POST__add_user_to_group(this.httpClient, {groupId: p.groupIdOrName, memberId: p.memberId})
+        expectedStatus = 200
+        break
+      case Platform.openCloud:
+      default:
+        response = endpoints.graph.v1.groups.POST__add_group_member(this.httpClient, {groupId: p.groupIdOrName, memberId: p.memberId})
+        expectedStatus = 204
+    }
+
+    check({val: response}, {
+      'client -> group.addGroupMember - status': ({status}) => {
+        return status === expectedStatus
+      }
+    })
+
     return response
   }
 }
