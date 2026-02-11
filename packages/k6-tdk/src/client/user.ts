@@ -31,7 +31,7 @@ export class User extends EndpointClient {
     return response
   }
 
-  async deleteUser(p: { userLogin: string }): Promise<RefinedResponse<'text' | 'none'>> {
+  async deleteUser(p: { userId: string }): Promise<RefinedResponse<'text' | 'none'>> {
     let expectedStatus: number
     let response: RefinedResponse<'text' | 'none'>
     switch (this.platform) {
@@ -55,7 +55,7 @@ export class User extends EndpointClient {
     return response
   }
 
-  async enableUser(p: { userLogin: string }): Promise<RefinedResponse<'text'> | undefined> {
+  async enableUser(p: { userId: string }): Promise<RefinedResponse<'text'> | undefined> {
     let expectedStatus = 200
     let response: RefinedResponse<'text'> | undefined
 
@@ -72,6 +72,26 @@ export class User extends EndpointClient {
 
     check({ skip: !response, val: response }, {
       'client -> user.enableUser - status': (r) => {
+        return r?.status === 200
+      }
+    })
+
+    return response
+  }
+
+  async getUsers(): Promise<RefinedResponse<'text'> | undefined> {
+    let response: RefinedResponse<'text'> | undefined
+    switch (this.platform) {
+      case Platform.ownCloudServer:
+      case Platform.nextcloud:
+        break
+      case Platform.openCloud:
+      default:
+        response = endpoints.graph.v1.users.GET_get_users(this.httpClient, {})
+    }
+
+    check({skip: !response, val: response}, {
+      'client -> group.getUsers - status': (r) => {
         return r?.status === 200
       }
     })

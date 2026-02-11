@@ -52,7 +52,7 @@ export async function setup(): Promise<void> {
         const [userIdOrName = user.userLogin] = queryJson('$.id', createUserResponse.body)
         userIdsOrNames.push(userIdOrName)
 
-        await adminClient.user.enableUser(user)
+        await adminClient.user.enableUser({userId: user.userLogin})
         await adminClient.role.addRoleToUser({appRoleId, resourceId, principalId: userIdOrName})
       })
     )
@@ -63,7 +63,7 @@ export async function setup(): Promise<void> {
    */
   await Promise.all(userIdsOrNames.map(async (userIdOrName) => {
     await Promise.all(groupIdsOrNames.map(async (groupIdOrName) => {
-      await adminClient.group.addGroupMember({groupIdOrName, memberId: userIdOrName})
+      await adminClient.group.addGroupUser({groupId: groupIdOrName, userId: userIdOrName})
     }))
   }))
 
@@ -152,4 +152,5 @@ export async function setup(): Promise<void> {
   }
 }
 
-export default function vu(): void {}
+export default function vu(): void {
+}

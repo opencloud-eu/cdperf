@@ -37,7 +37,7 @@ export async function setup(): Promise<Environment> {
     const [actorLogin, actorPassword] = [randomString(), randomString()]
     const createUserResponse = await adminClient.user.createUser({userLogin: actorLogin, userPassword: actorPassword})
     const [actorId] = queryJson('$.id', createUserResponse.body)
-    adminClient.user.enableUser({userLogin: actorLogin})
+    adminClient.user.enableUser({userId: actorLogin})
 
     const actorClient = clientFor({userLogin: actorLogin, userPassword: actorPassword})
     const getMyDrivesResponse = await actorClient.me.getMyDrives({params: {$filter: "driveType eq 'personal'"}})
@@ -79,6 +79,6 @@ export function teardown({actorData}: Environment): void {
   const adminClient = clientFor({userLogin: settings.admin.login, userPassword: settings.admin.password})
 
   actorData.forEach(({actorLogin}) => {
-    adminClient.user.deleteUser({userLogin: actorLogin})
+    adminClient.user.deleteUser({userId: actorLogin})
   })
 }

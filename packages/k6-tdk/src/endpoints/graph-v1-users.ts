@@ -12,8 +12,8 @@ export const POST__create_user: Endpoint<{ userLogin: string, userPassword: stri
   }))
 }
 
-export const DELETE__delete_user: Endpoint<{ userLogin: string }, 'none'> = (httpClient, { userLogin }) => {
-  return httpClient('DELETE', `/graph/v1.0/users/${userLogin}`)
+export const DELETE__delete_user: Endpoint<{ userId: string }, 'none'> = (httpClient, { userId }) => {
+  return httpClient('DELETE', `/graph/v1.0/users/${userId}`)
 }
 
 export const POST__add_app_role_to_user: Endpoint<{
@@ -26,4 +26,8 @@ export const POST__add_app_role_to_user: Endpoint<{
     principalId,
     resourceId
   }))
+}
+
+export const GET_get_users: Endpoint<{}, 'text'> = (httpClient) => {
+  return httpClient('GET', '/graph/v1.0/users')
 }

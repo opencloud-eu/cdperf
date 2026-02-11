@@ -14,10 +14,10 @@ export const DELETE__delete_group: Endpoint<{ groupId: string }, 'none'> = (http
   return httpClient('DELETE', `/graph/v1.0/groups/${groupId}`)
 }
 
-export const POST__add_group_member: Endpoint<{ groupId: string, memberId: string }, 'none'> = (httpClient, { memberId, groupId }) => {
+export const POST__add_user_to_group: Endpoint<{ groupId: string, userId: string }, 'none'> = (httpClient, { userId, groupId }) => {
   return httpClient('POST', `/graph/v1.0/groups/${groupId}/members/$ref`, JSON.stringify({
     // currently the url is not relevant, any url will do,
     // the important part is the memberId, and the users slug
-    '@odata.id': `https://any.url/graph/v1.0/users/${memberId}`
+    '@odata.id': `https://any.url/graph/v1.0/users/${userId}`
   }))
 }

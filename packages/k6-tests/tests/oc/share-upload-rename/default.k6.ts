@@ -45,7 +45,7 @@ export async function setup(): Promise<Environment> {
   const actorData = await Promise.all(times(options.vus || 1, async () => {
     const [actorLogin, actorPassword] = [randomString(), randomString()]
     adminClient.user.createUser({ userLogin: actorLogin, userPassword: actorPassword })
-    adminClient.user.enableUser({ userLogin: actorLogin })
+    adminClient.user.enableUser({ userId: actorLogin })
 
     const createShareResponse = await adminClient.share.createShare({
       shareResourcePath: settings.testFolder,
@@ -109,6 +109,6 @@ export function teardown({ adminData, actorData }: Environment): void {
 
   adminClient.resource.deleteResource({ root: adminData.adminRoot, resourcePath: settings.testFolder })
   actorData.forEach(({ actorLogin }) => {
-    adminClient.user.deleteUser({ userLogin: actorLogin })
+    adminClient.user.deleteUser({ userId: actorLogin })
   })
 }
