@@ -1,4 +1,4 @@
-import {noop, queryJson} from '@opencloud-eu/k6-tdk/lib/utils'
+import {queryJson} from '@opencloud-eu/k6-tdk/lib/utils'
 import {randomBytes} from 'k6/crypto'
 import {Options} from 'k6/options'
 
@@ -17,8 +17,59 @@ export const options: Options = {
 
 export async function setup(): Promise<void> {
   const values = envValues()
-
   const adminClient = clientFor({userLogin: values.admin.login, userPassword: values.admin.password})
+
+  /**
+   * groups
+   */
+  const groupIdsOrNames: Array<string> = []
+  const poolGroups = getPoolItems({pool: groupPool, n: values.seed.groups.total})
+  if (values.seed.groups.create) {
+    await Promise.all(
+      poolGroups.map(async ({groupName}) => {
+        const createGroupResponse = await adminClient.group.createGroup({groupName})
+        const [groupIdOrName = groupName] = queryJson('id', createGroupResponse.body)
+        groupIdsOrNames.push(groupIdOrName)
+      })
+    )
+  }
+
+  /**
+   * users
+   */
+  const poolUsers = getPoolItems({pool: userPool, n: values.seed.users.total})
+  const userIdsOrNames: Array<string> = []
+  if (values.seed.users.create) {
+    const getRolesResponse = await adminClient.role.getRoles()
+    const [appRoleId] = queryJson("$.bundles[?(@.name === 'spaceadmin')].id", getRolesResponse?.body)
+
+    const listApplicationsResponse = await adminClient.application.listApplications()
+    const [resourceId] = queryJson("$.value[?(@.displayName === 'OpenCloud')].id", listApplicationsResponse?.body)
+
+    await Promise.all(
+      poolUsers.map(async (user) => {
+        const createUserResponse = await adminClient.user.createUser(user)
+        const [userIdOrName = user.userLogin] = queryJson('$.id', createUserResponse.body)
+        userIdsOrNames.push(userIdOrName)
+
+        await adminClient.user.enableUser({userId: user.userLogin})
+        await adminClient.role.addRoleToUser({appRoleId, resourceId, principalId: userIdOrName})
+      })
+    )
+  }
+
+  /**
+   * users <-> groups
+   */
+  await Promise.all(userIdsOrNames.map(async (userIdOrName) => {
+    await Promise.all(groupIdsOrNames.map(async (groupIdOrName) => {
+      await adminClient.group.addGroupUser({groupId: groupIdOrName, userId: userIdOrName})
+    }))
+  }))
+
+  /**
+   * resources
+   */
   const testRoot = await createTestRoot({
     client: adminClient,
     resourceName: values.seed.container.name,
@@ -27,63 +78,15 @@ export async function setup(): Promise<void> {
     platform: values.platform.type
   })
 
-
-  let groupIdsOrNames: Array<string> = []
-  /**
-   * groups
-   */
-  if (values.seed.groups.create) {
-    const poolGroups = getPoolItems({pool: groupPool, n: values.seed.groups.total})
-    await Promise.all(
-      poolGroups.map(async ({groupName}) => {
-        const createGroupResponse = adminClient.group.createGroup({groupName})
-        const [groupId] = queryJson('id', createGroupResponse.body)
-        const groupIdOrName = groupId || groupName
-        groupIdsOrNames.push(groupIdOrName)
-        noop(groupIdsOrNames)
-      })
-    )
-  }
-
-  /**
-   * users
-   */
-  {
-    if (values.seed.users.create) {
-      const poolUsers = getPoolItems({pool: userPool, n: values.seed.users.total})
-      const getRolesResponse = adminClient.role.getRoles()
-      const [appRoleId] = queryJson("$.bundles[?(@.name === 'spaceadmin')].id", getRolesResponse?.body)
-
-      const listApplicationsResponse = adminClient.application.listApplications()
-      const [resourceId] = queryJson("$.value[?(@.displayName === 'OpenCloud')].id", listApplicationsResponse?.body)
-
-      await Promise.all(
-        poolUsers.map(async (user) => {
-          const createUserResponse = adminClient.user.createUser(user)
-          const [principalId] = queryJson('$.id', createUserResponse.body)
-
-          await adminClient.user.enableUser(user)
-          await adminClient.role.addRoleToUser({appRoleId, resourceId, principalId})
-          //await Promise.all(groupIdsOrNames.map(async (groupIdOrName) => {
-          //  await adminClient.group.addGroupMember({groupIdOrName, memberId: principalId})
-          //}))
-
-          const shareId = await shareResource({
-            client: adminClient,
-            root: testRoot.root,
-            path: testRoot.path,
-            shareReceiver: user.userLogin,
-            type: values.seed.container.type
-          })
-
-          if (shareId) {
-            const userClient = clientFor(user)
-            await userClient.share.acceptShare({shareId})
-          }
-        })
-      )
-    }
-  }
+  await Promise.all(poolGroups.map(async (group) => {
+    await shareResource({
+      client: adminClient,
+      root: testRoot.root,
+      path: testRoot.path,
+      shareReceiver: group.groupName,
+      type: values.seed.container.type
+    })
+  }))
 
   /**
    * data

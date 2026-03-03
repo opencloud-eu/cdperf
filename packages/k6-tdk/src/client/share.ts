@@ -7,13 +7,13 @@ import { Permission, ShareType } from '@/values'
 import { EndpointClient } from './client'
 
 export class Share extends EndpointClient {
-  createShare(p: {
+  async createShare(p: {
     shareResourcePath: string,
     shareType: ShareType,
     shareReceiver: string,
     spaceRef?: string,
     shareReceiverPermission: Permission
-  }): RefinedResponse<'text'> {
+  }): Promise<RefinedResponse<'text'>> {
     const response = endpoints.ocs.v2.apps.file_sharing.v1.shares.POST__create_share(this.httpClient, p,
       { platform: this.platform })
 
@@ -26,7 +26,7 @@ export class Share extends EndpointClient {
     return response
   }
 
-  deleteShare(p: { shareId: string }): RefinedResponse<'text'> {
+  async deleteShare(p: { shareId: string }): Promise<RefinedResponse<'text'>> {
     const response = endpoints.ocs.v2.apps.file_sharing.v1.shares.DELETE__delete_share(this.httpClient, p)
 
     check({ val: response }, {
@@ -38,7 +38,7 @@ export class Share extends EndpointClient {
     return response
   }
 
-  acceptShare(p: { shareId: string }): RefinedResponse<'text'> {
+  async acceptShare(p: { shareId: string }): Promise<RefinedResponse<'text'>> {
     const response = endpoints.ocs.v2.apps.file_sharing.v1.shares.POST__accept_share(this.httpClient, p)
 
     check({ val: response }, {

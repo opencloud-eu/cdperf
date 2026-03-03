@@ -8,7 +8,7 @@ import { EndpointClient } from './client'
 import { SEARCH__search_for_resources, SEARCH__search_for_resources_by_tag } from './xml'
 
 export class Search extends EndpointClient {
-  searchForSharees(p: { searchQuery: string, searchItemType: ItemType }): RefinedResponse<'text'> {
+  async searchForSharees(p: { searchQuery: string, searchItemType: ItemType }): Promise<RefinedResponse<'text'>> {
     const response = endpoints.ocs.v2.apps.file_sharing.v1.sharees.GET__search_for_sharees(this.httpClient, p)
 
     check({ val: response }, {
@@ -20,7 +20,7 @@ export class Search extends EndpointClient {
     return response
   }
 
-  searchForResources(p: { root: string, searchQuery: string, searchLimit?: number }): RefinedResponse<'text'> {
+  async searchForResources(p: { root: string, searchQuery: string, searchLimit?: number }): Promise<RefinedResponse<'text'>> {
     let response: RefinedResponse<'text'>
     switch (this.platform) {
       case Platform.nextcloud:
@@ -46,7 +46,7 @@ export class Search extends EndpointClient {
     return response
   }
 
-  searchForResourcesByTag(p: { root: string, tag: string }): RefinedResponse<'text'> {
+  async searchForResourcesByTag(p: { root: string, tag: string }): Promise<RefinedResponse<'text'>> {
     const response = endpoints.dav.files.REPORT__get_report_for_resources(this.httpClient, {
       ...p,
       reportXml: SEARCH__search_for_resources_by_tag[this.platform](p)

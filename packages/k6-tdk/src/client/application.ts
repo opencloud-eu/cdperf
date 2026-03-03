@@ -7,7 +7,7 @@ import { Platform } from '@/values'
 import { EndpointClient } from './client'
 
 export class Application extends EndpointClient {
-  listApplications(): RefinedResponse<'text'> | undefined {
+  async listApplications(): Promise<RefinedResponse<'text'> | undefined> {
     let response: RefinedResponse<'text'> | undefined
     switch (this.platform) {
       case Platform.ownCloudServer:

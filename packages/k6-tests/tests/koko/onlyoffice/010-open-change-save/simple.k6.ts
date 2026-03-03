@@ -123,19 +123,19 @@ export const open_change_save_010 = async ({ testRoot }: Environment): Promise<v
   sleep(settings.sleep.after_iteration)
 }
 
-export const open_change_save_010_teardown = ({ testRoot }: Environment): void => {
+export const open_change_save_010_teardown = async ({ testRoot }: Environment): Promise<void> => {
   const adminClient = clientFor({ userLogin: settings.admin.login, userPassword: settings.admin.password })
 
-  const waitForUnlock = () => {
-    const { body } = adminClient.resource.getResourceProperties({ root: testRoot, resourcePath: settings.docx })
+  const waitForUnlock = async () => {
+    const { body } = await adminClient.resource.getResourceProperties({ root: testRoot, resourcePath: settings.docx })
 
     if(queryXml("$..['d:activelock']", body).length !== 0){
       sleep(1)
-      waitForUnlock()
+      await waitForUnlock()
     }
   }
 
-  waitForUnlock()
+  await waitForUnlock()
 
   adminClient.resource.deleteResource({ root: testRoot, resourcePath: settings.docx })
 }

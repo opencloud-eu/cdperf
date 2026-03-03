@@ -7,7 +7,7 @@ import { Platform } from '@/values'
 import { EndpointClient } from './client'
 
 export class Drive extends EndpointClient {
-  createDrive(p: { driveName: string }): RefinedResponse<'text'> | undefined {
+  async createDrive(p: { driveName: string }): Promise<RefinedResponse<'text'> | undefined> {
     let response: RefinedResponse<'text'> | undefined
     switch (this.platform) {
       case Platform.ownCloudServer:
@@ -27,7 +27,7 @@ export class Drive extends EndpointClient {
     return response
   }
 
-  deactivateDrive(p: { driveId: string }): RefinedResponse<'none'> | undefined {
+  async deactivateDrive(p: { driveId: string }): Promise<RefinedResponse<'none'> | undefined> {
     let response: RefinedResponse<'none'> | undefined
     switch (this.platform) {
       case Platform.ownCloudServer:
@@ -47,7 +47,7 @@ export class Drive extends EndpointClient {
     return response
   }
 
-  deleteDrive(p: { driveId: string }): RefinedResponse<'none'> | undefined {
+  async deleteDrive(p: { driveId: string }): Promise<RefinedResponse<'none'> | undefined> {
     let response: RefinedResponse<'none'> | undefined
     switch (this.platform) {
       case Platform.ownCloudServer:

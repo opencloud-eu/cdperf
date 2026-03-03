@@ -7,7 +7,7 @@ import {Platform} from '@/values'
 import {EndpointClient} from './client'
 
 export class Group extends EndpointClient {
-  getGroups(): RefinedResponse<'text'> | undefined {
+  async getGroups(): Promise<RefinedResponse<'text'> | undefined> {
     let response: RefinedResponse<'text'> | undefined
     switch (this.platform) {
       case Platform.ownCloudServer:
@@ -27,7 +27,7 @@ export class Group extends EndpointClient {
     return response
   }
 
-  createGroup(p: { groupName: string }): RefinedResponse<'text'> {
+  async createGroup(p: { groupName: string }): Promise<RefinedResponse<'text'>> {
     let expectedStatus = 201
     let response: RefinedResponse<'text'>
 
@@ -52,18 +52,18 @@ export class Group extends EndpointClient {
     return response
   }
 
-  deleteGroup(p: { groupIdOrName: string }): RefinedResponse<'text' | 'none'> {
+  async deleteGroup(p: { groupId: string }): Promise<RefinedResponse<'text' | 'none'>> {
     let response: RefinedResponse<'text' | 'none'>
     let expectedStatus: number
     switch (this.platform) {
       case Platform.ownCloudServer:
       case Platform.nextcloud:
-        response = endpoints.ocs.v2.apps.cloud.groups.DELETE__delete_group(this.httpClient, {groupName: p.groupIdOrName})
+        response = endpoints.ocs.v2.apps.cloud.groups.DELETE__delete_group(this.httpClient, p)
         expectedStatus = 200
         break
       case Platform.openCloud:
       default:
-        response = endpoints.graph.v1.groups.DELETE__delete_group(this.httpClient, {groupId: p.groupIdOrName})
+        response = endpoints.graph.v1.groups.DELETE__delete_group(this.httpClient, p)
         expectedStatus = 204
     }
 
@@ -76,9 +76,27 @@ export class Group extends EndpointClient {
     return response
   }
 
-  addGroupMember(p: { groupIdOrName: string, memberId: string }): RefinedResponse<'text' | 'none'> {
-    const response = endpoints.graph.v1.groups.POST__add_group_member(this.httpClient, {groupId: p.groupIdOrName, memberId: p.memberId})
-    console.log(response)
+  async addGroupUser(p: { groupId: string, userId: string }): Promise<RefinedResponse<'text' | 'none'>> {
+    let response: RefinedResponse<'text' | 'none'>
+    let expectedStatus: number
+    switch (this.platform) {
+      case Platform.ownCloudServer:
+      case Platform.nextcloud:
+        response = endpoints.ocs.v2.apps.cloud.users.POST__add_user_to_group(this.httpClient, p)
+        expectedStatus = 200
+        break
+      case Platform.openCloud:
+      default:
+        response = endpoints.graph.v1.groups.POST__add_user_to_group(this.httpClient, p)
+        expectedStatus = 204
+    }
+
+    check({val: response}, {
+      'client -> group.addGroupMember - status': ({status}) => {
+        return status === expectedStatus
+      }
+    })
+
     return response
   }
 }

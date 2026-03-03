@@ -35,19 +35,19 @@ export const options: Options = {
   insecureSkipTLSVerify: true
 }
 
-export function setup(): Environment {
+export async function setup(): Promise<Environment> {
   const adminClient = clientFor({ userLogin: settings.admin.login, userPassword: settings.admin.password })
-  const getMyDrivesResponseAdmin = adminClient.me.getMyDrives({ params: { $filter: "driveType eq 'personal'" } })
+  const getMyDrivesResponseAdmin = await adminClient.me.getMyDrives({ params: { $filter: "driveType eq 'personal'" } })
   const [adminRoot = settings.admin.login] = queryJson("$.value[?(@.driveType === 'personal')].id", getMyDrivesResponseAdmin?.body)
 
   adminClient.resource.createResource({ root: adminRoot, resourcePath: settings.testFolder })
 
-  const actorData = times(options.vus || 1, () => {
+  const actorData = await Promise.all(times(options.vus || 1, async () => {
     const [actorLogin, actorPassword] = [randomString(), randomString()]
     adminClient.user.createUser({ userLogin: actorLogin, userPassword: actorPassword })
-    adminClient.user.enableUser({ userLogin: actorLogin })
+    adminClient.user.enableUser({ userId: actorLogin })
 
-    const createShareResponse = adminClient.share.createShare({
+    const createShareResponse = await adminClient.share.createShare({
       shareResourcePath: settings.testFolder,
       shareReceiver: actorLogin,
       shareType: ShareType.user,
@@ -56,7 +56,7 @@ export function setup(): Environment {
     const [createdShareId] = queryXml('ocs.data.id', createShareResponse.body)
 
     const actorClient = clientFor({ userLogin: actorLogin, userPassword: actorPassword })
-    const getMyDrivesResponseActor = actorClient.me.getMyDrives({ params: { $filter: "driveType eq 'personal'" } })
+    const getMyDrivesResponseActor = await actorClient.me.getMyDrives({ params: { $filter: "driveType eq 'personal'" } })
     const [actorRoot = actorLogin] = queryJson("$.value[?(@.driveType === 'personal')].id", getMyDrivesResponseActor?.body)
     actorClient.share.acceptShare({ shareId: createdShareId })
 
@@ -65,7 +65,7 @@ export function setup(): Environment {
       actorPassword,
       actorRoot
     }
-  })
+  }))
 
   return {
     adminData: {
@@ -109,6 +109,6 @@ export function teardown({ adminData, actorData }: Environment): void {
 
   adminClient.resource.deleteResource({ root: adminData.adminRoot, resourcePath: settings.testFolder })
   actorData.forEach(({ actorLogin }) => {
-    adminClient.user.deleteUser({ userLogin: actorLogin })
+    adminClient.user.deleteUser({ userId: actorLogin })
   })
 }

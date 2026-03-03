@@ -8,7 +8,7 @@ import {EndpointClient} from './client'
 import {RESOURCE__get_resource_properties} from './xml'
 
 export class Resource extends EndpointClient {
-  createResource(p: { root: string, resourcePath: string }): RefinedResponse<'none'> {
+  async createResource(p: { root: string, resourcePath: string }): Promise<RefinedResponse<'none'>> {
     let response: RefinedResponse<'none'>
     switch (this.platform) {
       case Platform.nextcloud:
@@ -29,7 +29,7 @@ export class Resource extends EndpointClient {
     return response
   }
 
-  deleteResource(p: { resourcePath: string, root: string }, v?: {allowStatus?: Array<number>}): RefinedResponse<'none'> {
+  async deleteResource(p: { resourcePath: string, root: string }, v?: {allowStatus?: Array<number>}): Promise<RefinedResponse<'none'>> {
     let response: RefinedResponse<'none'>
     switch (this.platform) {
       case Platform.ownCloudServer:
@@ -50,7 +50,7 @@ export class Resource extends EndpointClient {
     return response
   }
 
-  moveResource(p: { root: string, fromResourcePath: string, toResourcePath: string }): RefinedResponse<'none'> {
+  async moveResource(p: { root: string, fromResourcePath: string, toResourcePath: string }): Promise<RefinedResponse<'none'>> {
     let response: RefinedResponse<'none'>
 
     switch (this.platform) {
@@ -72,7 +72,7 @@ export class Resource extends EndpointClient {
     return response
   }
 
-  getResourceProperties(p: { root: string, resourcePath: string }): RefinedResponse<'text'> {
+  async getResourceProperties(p: { root: string, resourcePath: string }): Promise<RefinedResponse<'text'>> {
     const propfindXml = RESOURCE__get_resource_properties[this.platform]({})
 
     let response: RefinedResponse<'text'>
@@ -97,7 +97,7 @@ export class Resource extends EndpointClient {
     return response
   }
 
-  uploadResource(p: { resourcePath: string, root: string, resourceBytes: RequestBody }, v?: {allowStatus?: Array<number>}): RefinedResponse<'none'> {
+  async uploadResource(p: { resourcePath: string, root: string, resourceBytes: RequestBody }, v?: {allowStatus?: Array<number>}): Promise<RefinedResponse<'none'>> {
     let response: RefinedResponse<'none'>
 
     switch (this.platform) {
@@ -119,7 +119,7 @@ export class Resource extends EndpointClient {
     return response
   }
 
-  downloadResource(p: { resourcePath: string, root: string }): RefinedResponse<'binary'> {
+  async downloadResource(p: { resourcePath: string, root: string }): Promise<RefinedResponse<'binary'>> {
     let response: RefinedResponse<'binary'>
     switch (this.platform) {
       case Platform.ownCloudServer:

@@ -10,8 +10,8 @@ export const POST__create_group: Endpoint<{ groupName: string }, 'text'> = (http
   })
 }
 
-export const DELETE__delete_group: Endpoint<{ groupName: string }, 'text'> = (httpClient, { groupName }) => {
-  return httpClient('DELETE', `/ocs/v2.php/cloud/groups/${groupName}`, undefined, {
+export const DELETE__delete_group: Endpoint<{ groupId: string }, 'text'> = (httpClient, { groupId }) => {
+  return httpClient('DELETE', `/ocs/v2.php/cloud/groups/${groupId}`, undefined, {
     headers: {
       'OCS-APIRequest': 'true'
     }
